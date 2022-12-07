@@ -1,0 +1,38 @@
+version: "3.4"
+services:
+  app:
+    container_name: 'bank-service'
+    image: 'bank-service'
+    build:
+      context: .
+      dockerfile: Dockerfile.multi-stage
+      target: production
+      args:
+        SSH_PRIVATE_KEY: ${GO_BITBUCKET_SSH_PRIVATE_KEY}
+    environment:
+      APP_ENV: 'production'
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      BANK_SERVICE_POSTGRESQL_HOST: bank-service-postgres
+      BANK_SERVICE_POSTGRESQL_NAME: db
+      BANK_SERVICE_POSTGRESQL_NAME_TEST: db_test
+      BANK_SERVICE_POSTGRESQL_PASSWORD: ${BANK_SERVICE_POSTGRESQL_PASSWORD}
+      BANK_SERVICE_POSTGRESQL_PORT: 5432
+      BANK_SERVICE_POSTGRESQL_SSLMODE: disable
+      BANK_SERVICE_POSTGRESQL_USERNAME: root
+      BANK_SERVICE_REST_PORT: 3000
+      SECONDS_BETWEEN_ATTEMPTS: 60
+      SERVICE_NAME: bank-service
+      WHITE_LIST: 'http://localhost:8080,http://localhost:8000'
+    ports:
+      - '3000:3000'
+    depends_on:
+      - database
+  database:
+    container_name: 'bank-service-postgres'
+    image: 'postgres:12.3'
+    ports:
+      - '5432:5432'
+networks:
+  default:
+    external:
+      name: bank-net

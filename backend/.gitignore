@@ -1,0 +1,32 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+main
+migrations.internal
+
+# Test binary, built with `go test -c`
+*.test
+results.xml
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+*.out.html
+
+
+# Dependency directories (remove the comment below to include it)
+vendor/
+
+# Redis volume
+data/
+
+#Enviroment files
+.env
+
+#Log files
+*.log
+
+#Audit files
+audit.json

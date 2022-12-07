@@ -1,0 +1,42 @@
+# development --------------------------
+FROM golang:1.16.14 as development
+
+WORKDIR /app
+
+RUN go get github.com/githubnemo/CompileDaemon
+RUN go get gotest.tools/gotestsum
+
+EXPOSE 3000
+ENTRYPOINT CompileDaemon --build="go build main.go" --command=./main
+
+# builder --------------------------
+FROM development as builder
+
+COPY ./go.mod .
+COPY ./go.sum .
+RUN go mod download
+
+COPY . .
+
+RUN CGO_ENABLED=0 GOOS=linux go build -installsuffix cgo -ldflags '-w -s' -o /app/migrations.external /app/migrations/external
+RUN CGO_ENABLED=0 GOOS=linux go build -installsuffix cgo -ldflags '-w -s' -o /app/migrations.internal /app/migrations/internal
+RUN CGO_ENABLED=0 GOOS=linux go build -installsuffix cgo -ldflags '-w -s' -o /app/main
+
+EXPOSE 3000
+CMD ["/app/main"]
+
+
+# Production --------------------------
+FROM alpine:3 as production
+
+ENV PATH /app:$PATH
+WORKDIR /app
+
+COPY --from=builder /app/migrations.external /app/migrations.external
+COPY --from=builder /app/migrations.internal /app/migrations.internal
+COPY --from=builder /app/src/libs/i18n/*.json /app/src/libs/i18n/
+COPY --from=builder /app/main /app/main
+
+EXPOSE 3000
+
+CMD ["/app/main"]
