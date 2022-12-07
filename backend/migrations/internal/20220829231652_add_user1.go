@@ -2,7 +2,6 @@ package main
 
 import (
 	"bank-service/src/libs/env"
-	"bank-service/src/libs/password"
 	"bank-service/src/utils/constant"
 
 	"github.com/go-pg/pg/v9/orm"
@@ -16,13 +15,9 @@ func init() {
 	up := func(db orm.DB) error {
 		plainPassword := env.ProcessCriticalEnvVar("BANK_SERVICE_USER1_PASSWORD")
 		email := env.ProcessCriticalEnvVar("BANK_SERVICE_USER1_EMAIL")
-		hasedPassword, err := password.HashPassword(plainPassword)
-		if err != nil {
-			return err
-		}
-		_, err = db.Exec(`
+		_, err := db.Exec(`
 			INSERT INTO "user" (id, first_name, last_name, email, password, document_number, user_type) VALUES(?, ?, ?, ?, ?, ?, ?);
-		`, userIDuser1, "Elon", "Musk", email, hasedPassword, documentNumber, constant.UserTypeClient)
+		`, userIDuser1, "Elon", "Musk", email, plainPassword, documentNumber, constant.UserTypeClient)
 		return err
 	}
 

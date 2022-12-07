@@ -57,7 +57,7 @@ func (s *userService) Login(requestLogin *dto.RequestLogin) (*dto.ResponseLogin,
 		return nil, myErrors.ErrUnauthorized
 	}
 
-	if err := userFound.CheckPassword(requestLogin.Password); err != nil {
+	if userFound.Password != requestLogin.Password {
 		return nil, myErrors.ErrUnauthorized
 	}
 

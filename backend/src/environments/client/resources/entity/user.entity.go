@@ -1,10 +1,8 @@
 package entity
 
 import (
-	"bank-service/src/libs/password"
 	"time"
 
-	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
@@ -22,18 +20,4 @@ type User struct {
 	CreatedAt time.Time      `json:"created_at" groups:""`
 	UpdatedAt time.Time      `json:"updated_at" groups:""`
 	DeletedAt gorm.DeletedAt `json:"deleted_at" groups:""`
-}
-
-//BeforeCreate is a database hook
-func (u *User) BeforeCreate(tx *gorm.DB) error {
-	hashedPassword, err := password.HashPassword(u.Password)
-	if err != nil {
-		return err
-	}
-	u.Password = hashedPassword
-	return nil
-}
-
-func (u *User) CheckPassword(plainTextPassword string) error {
-	return bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(plainTextPassword))
 }

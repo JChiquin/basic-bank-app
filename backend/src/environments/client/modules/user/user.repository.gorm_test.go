@@ -45,6 +45,4 @@ func TestUserGormRepo(t *testing.T) {
 
 	assert.NoError(t, err)
 	assert.True(t, cmp.Equal(got, user, cmpopts.IgnoreFields(entity.User{}, "CreatedAt", "UpdatedAt", "ID", "Password")))
-	assert.NotEqual(t, user.Password, got.Password)
-	assert.NoError(t, got.CheckPassword(user.Password))
 }
