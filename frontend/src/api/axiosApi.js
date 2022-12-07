@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { getJWT } from "../utils/localStorage"
 
 export const API_URL_BACKEND = process.env.REACT_APP_API_URL_BACKEND;
 const AXIOS_TIMEOUT_MS = process.env.REACT_APP_AXIOS_TIMEOUT_MS || 10000;
@@ -15,11 +14,6 @@ export const apiHttp = async (method, endpoint, data = null, params = null, opti
     options.headers = {
         ...defaultHeaders,
         ...options.headers
-    }
-
-    let jwt = getJWT()
-    if (jwt) {
-        options.headers["Authorization"] = `Bearer ${jwt}`
     }
 
     let serviceResponse = {}
