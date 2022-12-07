@@ -3,9 +3,7 @@ package movement
 import (
 	"bank-service/src/environments/client/resources/interfaces"
 	controller "bank-service/src/libs/controllers/client"
-	"bank-service/src/libs/dto"
-	"bank-service/src/utils/constant"
-	"bank-service/src/utils/helpers"
+	httpUtils "bank-service/src/libs/http"
 	"bank-service/src/utils/pagination"
 	"net/http"
 )
@@ -28,14 +26,19 @@ func NewMovementController(sMovement interfaces.IMovementService) interfaces.IMo
 }
 
 func (c *movementController) Index(response http.ResponseWriter, request *http.Request) {
-	jwtContext := request.Context().Value(helpers.ContextKey(constant.JWTContext)).(*dto.JWTContext)
+	userID, err := httpUtils.GetParamRequestInt(request, "id")
+	if err != nil {
+		c.MakeErrorResponse(response, err)
+		return
+	}
+
 	pagination, err := pagination.GetPaginationFromQuery(request.URL.Query())
 	if err != nil {
 		c.MakeErrorResponse(response, err)
 		return
 	}
 
-	movements, err := c.sMovement.IndexByUserID(jwtContext.UserID, pagination)
+	movements, err := c.sMovement.IndexByUserID(userID, pagination)
 	if err != nil {
 		c.MakeErrorResponse(response, err)
 		return

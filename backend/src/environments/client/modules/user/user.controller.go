@@ -6,8 +6,6 @@ import (
 	"bank-service/src/libs/dto"
 	httpUtils "bank-service/src/libs/http"
 	"bank-service/src/libs/i18n"
-	"bank-service/src/utils/constant"
-	"bank-service/src/utils/helpers"
 	"net/http"
 )
 
@@ -66,13 +64,13 @@ func (c *userController) Login(response http.ResponseWriter, request *http.Reque
 	c.MakeSuccessResponse(response, user, http.StatusOK, i18n.T(i18n.Message{MessageID: "USER.LOGIN"}))
 }
 
-/*
-WhoAmI extracts userID from context (came from JWT) and calls service to find user by that value
-*/
 func (c *userController) WhoAmI(response http.ResponseWriter, request *http.Request) {
-	jwtContext := request.Context().Value(helpers.ContextKey(constant.JWTContext)).(*dto.JWTContext)
-
-	user, err := c.sUser.FindByID(jwtContext.UserID)
+	userID, err := httpUtils.GetParamRequestInt(request, "id")
+	if err != nil {
+		c.MakeErrorResponse(response, err)
+		return
+	}
+	user, err := c.sUser.FindByID(userID)
 	if err != nil {
 		c.MakeErrorResponse(response, err)
 		return

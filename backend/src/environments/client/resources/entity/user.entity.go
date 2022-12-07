@@ -9,7 +9,7 @@ import (
 )
 
 type User struct {
-	ID             int       `json:"id" gorm:"primaryKey" groups:""`
+	ID             int       `json:"id" gorm:"primaryKey" groups:"client"`
 	FirstName      string    `json:"first_name" groups:"client"`
 	LastName       string    `json:"last_name" groups:"client"`
 	DocumentNumber string    `json:"document_number" groups:"client"`

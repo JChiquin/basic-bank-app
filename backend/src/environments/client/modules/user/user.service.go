@@ -15,15 +15,14 @@ struct that implements IUserService
 */
 type userService struct {
 	rUser interfaces.IUserRepository
-	sJWT  interfaces.IJWTService
 }
 
 /*
 NewUserService creates a new service, receives repository by dependency injection
 and returns IUserService, so it needs to implement all its methods
 */
-func NewUserService(rUser interfaces.IUserRepository, sJWT interfaces.IJWTService) interfaces.IUserService {
-	return &userService{rUser, sJWT}
+func NewUserService(rUser interfaces.IUserRepository) interfaces.IUserService {
+	return &userService{rUser}
 }
 
 func (s *userService) Create(createUser *dto.CreateUser) (*entity.User, error) {
@@ -62,14 +61,8 @@ func (s *userService) Login(requestLogin *dto.RequestLogin) (*dto.ResponseLogin,
 		return nil, myErrors.ErrUnauthorized
 	}
 
-	jwt, err := s.sJWT.Create(userFound)
-	if err != nil {
-		return nil, err
-	}
-
 	responseLogin := &dto.ResponseLogin{
 		User: *userFound,
-		JWT:  jwt,
 	}
 	return responseLogin, nil
 }
