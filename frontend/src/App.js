@@ -3,7 +3,7 @@ import Register from './components/Register';
 import Logout from './components/Logout';
 import Login from './components/Login';
 import Appbar from './components/Appbar';
-import OrderList from './components/MovementList';
+import MovementList from './components/MovementList';
 import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import {
   selectIsLogged,
@@ -66,7 +66,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/movements" element={
             <RequireAuth>
-              <OrderList />
+              <MovementList />
             </RequireAuth>
           } />
           <Route path="*" element={<NotFound/>} />

@@ -4,18 +4,11 @@
         "LOGIN": "Usuario logueado con éxito",
         "WHO_AM_I": "Usuario validado con éxito"
     },
-    "ORDER": {
-        "CREATED": "Orden creada con éxito",
-        "FOUND": "Orden encontrada con éxito",
-        "APPROVED": "Orden aprobada con éxito",
-        "REJECT": "Orden rechazada con éxito"
-    },
     "ERRORS": {
         "FIELD_VALIDATION": "El campo {{.Field}} no cumple la validación {{.Validation}} {{.Valid}}",
         "INTERNAL_SERVER": "Error interno del servidor",
         "INVALID_REQUEST_BODY": "Los datos de la solicitud son inválidos",
         "NOT_FOUND": "Entidad no encontrada",
-        "ORDER_NOT_APPROVABLE": "No se puede aprobar esta orden por su estatus actual",
         "PAGE_SIZE_TOO_LARGE": "Valor muy alto para tamaño de página",
         "PAGE_TOO_LARGE": "Valor muy alto para página",
         "UNAUTHORIZED": "Usuario no autorizado, credenciales incorrectas",

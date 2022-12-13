@@ -30,9 +30,6 @@ var (
 
 	//ErrURLNotFound indicates a requested URL doesn't exist
 	ErrURLNotFound = NewMyError(http.StatusNotFound, i18n.Message{MessageID: "ERRORS.URL_NOT_FOUND"})
-
-	//ErrOrderNotApprovable indicates the current order cannot be approved
-	ErrOrderNotApprovable = NewMyError(http.StatusConflict, i18n.Message{MessageID: "ERRORS.ORDER_NOT_APPROVABLE"})
 )
 
 //Private errors
