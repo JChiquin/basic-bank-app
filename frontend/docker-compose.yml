@@ -1,0 +1,17 @@
+version: "3.4"
+services:
+  app:
+    container_name: "bank-frontend"
+    image: "bank-frontend"
+    build:
+      context: .
+    volumes:
+      - .:/app
+      - "reserved:/app/node_modules" #Don't delete node_modules of container
+    ports:
+      - "8080:8080"
+    environment:
+      REACT_APP_API_URL_BACKEND: "http://localhost:3000"
+      PORT: 8080
+volumes:
+  reserved:
