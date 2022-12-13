@@ -1,5 +1,5 @@
 # bank-service
-Seed project for golang microservices with docker, postgres, migrations, sentry and ping endpoint
+Basic bank service with users and movements
 
 ## Development containers
 In the project there is a docker-compose file used to lift the entire work environment without installing frames or tools used by the project

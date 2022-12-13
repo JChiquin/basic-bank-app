@@ -3,7 +3,7 @@ import Register from './components/Register';
 import Logout from './components/Logout';
 import Login from './components/Login';
 import Appbar from './components/Appbar';
-import OrderList from './components/MovementList';
+import MovementList from './components/MovementList';
 import { Routes, Route } from 'react-router-dom';
 
 
@@ -16,7 +16,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/movements/:userID" element={
-              <OrderList />
+              <MovementList />
           } />
           <Route path="*" element={<Login/>} />
         </Routes>

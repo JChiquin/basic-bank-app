@@ -4,18 +4,11 @@
         "LOGIN": "User successfully logged in",
         "WHO_AM_I": "User successfully validated"
     },
-    "ORDER": {
-        "CREATED": "Order successfully created",
-        "FOUND": "Order successfully found",
-        "APPROVED": "Order successfully approved",
-        "REJECT": "Order successfully rejected"
-    },
     "ERRORS": {
         "FIELD_VALIDATION": "The {{.Field}} field does not satisfy the validation {{.Validation}} {{.Valid}}",
         "INTERNAL_SERVER": "Internal server error",
         "INVALID_REQUEST_BODY": "The request body is invalid",
         "NOT_FOUND": "Entity not found",
-        "ORDER_NOT_APPROVABLE": "This order cannot be approved due to its current status",
         "PAGE_SIZE_TOO_LARGE": "Page size value too large",
         "PAGE_TOO_LARGE": "Page value too large",
         "UNAUTHORIZED": "Unauthorized user, incorrect credentials",

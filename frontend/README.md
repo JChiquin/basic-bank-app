@@ -2,6 +2,31 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Development containers
+In the project there is a docker-compose file used to lift the entire work environment without installing frames or tools used by the project
+
+- Install Docker `sudo apt-get install docker-compose`
+
+- Create the `.env` file based on `.env.example`.
+
+- Build docker orchestra
+
+```bash
+$ docker-compose build
+```
+
+- Run docker orchestra
+
+```bash
+$ docker-compose up -d
+```
+
+- Check service up
+
+```bash
+$ curl http://localhost:8080
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
