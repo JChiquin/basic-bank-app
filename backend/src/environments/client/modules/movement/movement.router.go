@@ -27,7 +27,7 @@ privateRoutes assigns controller function for routes
 */
 func (r *movementRouter) privateRoutes(subRouter *mux.Router) {
 	subRouter.
-		Path("").
+		Path("/{id}").
 		Handler(httpUtils.Middleware(
 			http.HandlerFunc(r.cMovement.Index),
 		)).

@@ -61,10 +61,4 @@ func (dto *RequestLogin) Validate() error {
 
 type ResponseLogin struct {
 	entity.User
-	JWT string `json:"jwt" groups:"client,admin"`
-}
-
-type JWTContext struct {
-	UserID   int    `json:"-"`
-	UserType string `json:"-"`
 }

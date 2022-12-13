@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { loginAPI, whoAmIAPI } from '../../api/modules/user';
-import { setJWT, removeJWT } from "../../utils/localStorage"
 
 const initialState = {
   value: {
+    id: '',
     email: '',
     phone_number: '',
     first_name: '',
@@ -33,8 +33,8 @@ export const login = createAsyncThunk(
 
 export const whoAmI = createAsyncThunk(
   'user/whoAmI',
-  async (jwt, { rejectWithValue }) => {
-    const response = await whoAmIAPI(jwt);
+  async (userID, { rejectWithValue }) => {
+    const response = await whoAmIAPI(userID);
     if (response.errors.length) {
       return rejectWithValue(response?.errors[0]?.error)
     }
@@ -51,7 +51,6 @@ export const userSlice = createSlice({
     // Use the PayloadAction type to declare the contents of `action.payload`
     logout: (state) => {
       state.value = initialState.value
-      removeJWT()
     },
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -59,7 +58,6 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        setJWT(action.payload.jwt)
         state.value = action.payload;
         state.loading = false;
 
@@ -75,9 +73,6 @@ export const userSlice = createSlice({
       
       builder.addCase(whoAmI.fulfilled, (state, action) => {
         state.value = action.payload;
-      })
-      .addCase(whoAmI.rejected, (state, action) => {
-        removeJWT()
       })
   },
 });

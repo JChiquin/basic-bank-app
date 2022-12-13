@@ -16,15 +16,11 @@ import { DEFAULT_TYPES } from '../constant'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import CustomPhoneNumber from './prebuilt/PhoneNumber'
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import LoadingButton from '@mui/lab/LoadingButton';
 import {
     login,
-    selectIsLogged
+    selectIsLogged,
+    selectUserLogged
 } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerAPI } from '../api/modules/user';
@@ -54,6 +50,7 @@ export default function SignUp() {
 
     const { enqueueSnackbar } = useSnackbar();
     const isLogged = useSelector(selectIsLogged);
+    const userLogger = useSelector(selectUserLogged);
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -107,7 +104,7 @@ export default function SignUp() {
 
     React.useEffect(() => {
         if (isLogged) {
-            navigate("/checkout/1")
+            navigate(`/movements/${userLogger.id}`)
         }
     }, [isLogged])
 

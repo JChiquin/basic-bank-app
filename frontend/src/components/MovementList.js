@@ -16,11 +16,13 @@ import { ccyFormat, getAPIError } from '../utils/helpers'
 import { getMovementsAPI } from '../api/modules/movement'
 import { useSnackbar } from 'notistack';
 import { red, green } from '@mui/material/colors';
+import { useParams } from 'react-router-dom';
 
 import {
+    whoAmI,
     selectUserLogged
 } from '../redux/user/userSlice';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 const headCells = [
     {
@@ -75,13 +77,15 @@ const formatDate = (date) => {
 
 const printAmount = (amount, multiplier) => {
     const color = multiplier == -1 ? red[500] : green[500]
-    const arrow = multiplier == -1 ? "↓"  : "↑"
+    const arrow = multiplier == -1 ? "↓" : "↑"
     return <Typography sx={{ color }}>
         $ {ccyFormat(amount)} {arrow}
     </Typography>
 }
 
 export default function MovementList() {
+    const dispatch = useDispatch()
+    const { userID } = useParams()
     const { enqueueSnackbar } = useSnackbar();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -96,13 +100,17 @@ export default function MovementList() {
             page_size: rowsPerPage,
             page: page + 1
         }
-        const response = await getMovementsAPI(apiParams)
+        const response = await getMovementsAPI(apiParams, userID)
         if (response?.errors?.length) {
             return enqueueSnackbar(getAPIError(response.errors), { variant: "error" })
         }
         setMovements(response.data)
         setTotalCount(Number(response.headers["x-pagination-total-count"]))
     }
+
+    React.useEffect(() => {
+        dispatch(whoAmI(userID))
+    }, [])
 
     React.useEffect(() => {
         getMovements()

@@ -16,6 +16,7 @@ import {
     selectIsLogged,
     selectUserErrorMessage,
     selectUserLoading,
+    selectUserLogged,
 } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { hasFieldsErrors, isObjNotEmpty } from '../utils/formValidation'
@@ -37,6 +38,7 @@ export default function SignIn() {
     const [form, setForm] = React.useState(DEFAULT_FORM)
     const [formErrors, setFormErrors] = React.useState(DEFAULT_FORM)
     const isLogged = useSelector(selectIsLogged);
+    const userLogger = useSelector(selectUserLogged);
     const userErrorMessage = useSelector(selectUserErrorMessage);
     const userUserLoading = useSelector(selectUserLoading);
     const dispatch = useDispatch()
@@ -63,7 +65,7 @@ export default function SignIn() {
 
     React.useEffect(() => {
         if (isLogged) {
-            navigate("/movements")
+            navigate(`/movements/${userLogger.id}`)
         }
     }, [isLogged])
     
