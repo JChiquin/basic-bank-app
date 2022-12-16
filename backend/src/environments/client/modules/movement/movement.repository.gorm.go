@@ -3,7 +3,6 @@ package movement
 import (
 	"bank-service/src/environments/client/resources/entity"
 	"bank-service/src/environments/client/resources/interfaces"
-	"bank-service/src/libs/dto"
 
 	"gorm.io/gorm"
 )
@@ -23,13 +22,10 @@ func NewMovementGormRepo(gormDb *gorm.DB) interfaces.IMovementRepository {
 	return &movementGormRepo{db: gormDb}
 }
 
-func (r *movementGormRepo) IndexByUserID(movementToFilter entity.Movement, pagination *dto.Pagination) ([]entity.Movement, error) {
+func (r *movementGormRepo) IndexByUserID(userID int) ([]entity.Movement, error) {
 	movements := []entity.Movement{}
 	err := r.db.Model(entity.Movement{}).
-		Where(movementToFilter).
-		Count(&pagination.TotalCount).
-		Offset(pagination.Offset()).
-		Limit(pagination.PageSize).
+		Where(entity.Movement{UserID: userID}).
 		Order("created_at desc").
 		Find(&movements).Error
 	if err != nil {

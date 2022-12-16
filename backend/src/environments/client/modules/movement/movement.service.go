@@ -3,7 +3,6 @@ package movement
 import (
 	"bank-service/src/environments/client/resources/entity"
 	"bank-service/src/environments/client/resources/interfaces"
-	"bank-service/src/libs/dto"
 )
 
 /*
@@ -21,9 +20,6 @@ func NewMovementService(rMovement interfaces.IMovementRepository) interfaces.IMo
 	return &movementService{rMovement}
 }
 
-func (s *movementService) IndexByUserID(filterMovements *dto.FilterMovements, pagination *dto.Pagination) ([]entity.Movement, error) {
-	if err := filterMovements.Validate(); err != nil {
-		return nil, err
-	}
-	return s.rMovement.IndexByUserID(filterMovements.ParseToMovement(), pagination)
+func (s *movementService) IndexByUserID(userID int) ([]entity.Movement, error) {
+	return s.rMovement.IndexByUserID(userID)
 }

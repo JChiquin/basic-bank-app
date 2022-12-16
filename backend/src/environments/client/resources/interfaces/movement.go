@@ -2,7 +2,6 @@ package interfaces
 
 import (
 	"bank-service/src/environments/client/resources/entity"
-	"bank-service/src/libs/dto"
 	"net/http"
 )
 
@@ -17,12 +16,12 @@ type IMovementController interface {
 IMovementService methods to implement the bussiness logic
 */
 type IMovementService interface {
-	IndexByUserID(filterMovements *dto.FilterMovements, pagination *dto.Pagination) ([]entity.Movement, error)
+	IndexByUserID(userID int) ([]entity.Movement, error)
 }
 
 /*
 IMovementRepository methods to interact with movement entity, independent of ORM
 */
 type IMovementRepository interface {
-	IndexByUserID(movementToFilter entity.Movement, pagination *dto.Pagination) ([]entity.Movement, error)
+	IndexByUserID(userID int) ([]entity.Movement, error)
 }

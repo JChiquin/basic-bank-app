@@ -6,8 +6,6 @@ import (
 	"bank-service/src/libs/dto"
 	"bank-service/src/utils/constant"
 	"bank-service/src/utils/helpers"
-	"bank-service/src/utils/pagination"
-	"bank-service/src/utils/querystring"
 	"net/http"
 )
 
@@ -30,24 +28,11 @@ func NewMovementController(sMovement interfaces.IMovementService) interfaces.IMo
 
 func (c *movementController) Index(response http.ResponseWriter, request *http.Request) {
 	jwtContext := request.Context().Value(helpers.ContextKey(constant.JWTContext)).(*dto.JWTContext)
-	pagination, err := pagination.GetPaginationFromQuery(request.URL.Query())
+
+	movements, err := c.sMovement.IndexByUserID(jwtContext.UserID)
 	if err != nil {
 		c.MakeErrorResponse(response, err)
 		return
 	}
-
-	filterMovements := &dto.FilterMovements{}
-	if err := querystring.Decode(filterMovements, request.URL.Query()); err != nil {
-		c.MakeErrorResponse(response, err)
-		return
-	}
-
-	filterMovements.UserID = jwtContext.UserID
-
-	movements, err := c.sMovement.IndexByUserID(filterMovements, pagination)
-	if err != nil {
-		c.MakeErrorResponse(response, err)
-		return
-	}
-	c.MakePaginateResponse(response, movements, http.StatusOK, pagination)
+	c.MakeSuccessResponse(response, movements, http.StatusOK, "success")
 }

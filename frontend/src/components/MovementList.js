@@ -4,7 +4,6 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
@@ -16,8 +15,6 @@ import { ccyFormat, getAPIError } from '../utils/helpers'
 import { getMovementsAPI } from '../api/modules/movement'
 import { useSnackbar } from 'notistack';
 import { red, green } from '@mui/material/colors';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
 
 import {
     selectUserLogged
@@ -83,83 +80,30 @@ const printAmount = (amount, multiplier) => {
     </Typography>
 }
 
-const availableMultiplierFilters = [
-    {
-        value: 0,
-        label: "Todos"
-    },
-    {
-        value: 1,
-        label: "Créditos"
-    },
-    {
-        value: -1,
-        label: "Débitos"
-    }
-]
-
 export default function MovementList() {
     const { enqueueSnackbar } = useSnackbar();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [totalCount, setTotalCount] = React.useState(0);
-    const [multiplierFilter, setMultiplierFilter] = React.useState(0);
 
     const userLogged = useSelector(selectUserLogged);
 
     const [movements, setMovements] = React.useState([]);
 
     const getMovements = async () => {
-        let apiParams = {
-            page_size: rowsPerPage,
-            page: page + 1
-        }
-        if (multiplierFilter != 0) 
-            apiParams.multiplier = multiplierFilter
-        const response = await getMovementsAPI(apiParams)
+        const response = await getMovementsAPI(null)
         if (response?.errors?.length) {
             return enqueueSnackbar(getAPIError(response.errors), { variant: "error" })
         }
         setMovements(response.data)
-        setTotalCount(Number(response.headers["x-pagination-total-count"]))
     }
 
     React.useEffect(() => {
         getMovements()
-    }, [page, rowsPerPage, multiplierFilter])
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
+    }, [])
 
     return (
         <Container component="main" maxWidth="lg" sx={{ mt: 4 }}>
             <Typography variant="h5">
                 Hola, {userLogged.first_name} {userLogged.last_name}. Tu saldo es {ccyFormat(movements[0]?.balance || 0)}
             </Typography>
-            <Grid container justifyContent="flex-end" spacing={2}>
-                <Grid item xs={4}>
-                    <TextField
-                        name="filter"
-                        value={multiplierFilter}
-                        onChange={(e) => setMultiplierFilter(e.target.value)}
-                        select
-                        fullWidth
-                        margin="normal"
-                    >
-                        {availableMultiplierFilters.map((filter) => (
-                            <MenuItem key={filter.value} value={filter.value}>
-                                {filter.label}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                </Grid>
-            </Grid>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <Paper sx={{ width: '100%', mb: 2 }}>
                     <TableContainer>
@@ -169,7 +113,6 @@ export default function MovementList() {
                             size={'medium'}
                         >
                             <EnhancedTableHead
-                                rowCount={totalCount}
                             />
                             <TableBody>
                                 {movements.map((row, index) => {
@@ -197,15 +140,6 @@ export default function MovementList() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <TablePagination
-                        rowsPerPageOptions={[5, 10, 25]}
-                        component="div"
-                        count={totalCount}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
                 </Paper>
             </Box>
             <Box sx={{ display: { xs: 'block', md: 'none' } }}>
