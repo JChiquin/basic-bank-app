@@ -7,6 +7,7 @@ import (
 	"bank-service/src/utils/constant"
 	"bank-service/src/utils/helpers"
 	"bank-service/src/utils/pagination"
+	"bank-service/src/utils/querystring"
 	"net/http"
 )
 
@@ -35,7 +36,15 @@ func (c *movementController) Index(response http.ResponseWriter, request *http.R
 		return
 	}
 
-	movements, err := c.sMovement.IndexByUserID(jwtContext.UserID, pagination)
+	filterMovements := &dto.FilterMovements{}
+	if err := querystring.Decode(filterMovements, request.URL.Query()); err != nil {
+		c.MakeErrorResponse(response, err)
+		return
+	}
+
+	filterMovements.UserID = jwtContext.UserID
+
+	movements, err := c.sMovement.IndexByUserID(filterMovements, pagination)
 	if err != nil {
 		c.MakeErrorResponse(response, err)
 		return

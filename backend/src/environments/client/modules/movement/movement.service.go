@@ -21,6 +21,9 @@ func NewMovementService(rMovement interfaces.IMovementRepository) interfaces.IMo
 	return &movementService{rMovement}
 }
 
-func (s *movementService) IndexByUserID(userID int, pagination *dto.Pagination) ([]entity.Movement, error) {
-	return s.rMovement.IndexByUserID(userID, pagination)
+func (s *movementService) IndexByUserID(filterMovements *dto.FilterMovements, pagination *dto.Pagination) ([]entity.Movement, error) {
+	if err := filterMovements.Validate(); err != nil {
+		return nil, err
+	}
+	return s.rMovement.IndexByUserID(filterMovements.ParseToMovement(), pagination)
 }

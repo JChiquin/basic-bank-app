@@ -17,12 +17,12 @@ type IMovementController interface {
 IMovementService methods to implement the bussiness logic
 */
 type IMovementService interface {
-	IndexByUserID(userID int, pagination *dto.Pagination) ([]entity.Movement, error)
+	IndexByUserID(filterMovements *dto.FilterMovements, pagination *dto.Pagination) ([]entity.Movement, error)
 }
 
 /*
 IMovementRepository methods to interact with movement entity, independent of ORM
 */
 type IMovementRepository interface {
-	IndexByUserID(userID int, pagination *dto.Pagination) ([]entity.Movement, error)
+	IndexByUserID(movementToFilter entity.Movement, pagination *dto.Pagination) ([]entity.Movement, error)
 }

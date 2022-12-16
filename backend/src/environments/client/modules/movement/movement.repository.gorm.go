@@ -23,10 +23,10 @@ func NewMovementGormRepo(gormDb *gorm.DB) interfaces.IMovementRepository {
 	return &movementGormRepo{db: gormDb}
 }
 
-func (r *movementGormRepo) IndexByUserID(userID int, pagination *dto.Pagination) ([]entity.Movement, error) {
+func (r *movementGormRepo) IndexByUserID(movementToFilter entity.Movement, pagination *dto.Pagination) ([]entity.Movement, error) {
 	movements := []entity.Movement{}
 	err := r.db.Model(entity.Movement{}).
-		Where(entity.Movement{UserID: userID}).
+		Where(movementToFilter).
 		Count(&pagination.TotalCount).
 		Offset(pagination.Offset()).
 		Limit(pagination.PageSize).

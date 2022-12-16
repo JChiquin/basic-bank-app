@@ -16,6 +16,8 @@ import { ccyFormat, getAPIError } from '../utils/helpers'
 import { getMovementsAPI } from '../api/modules/movement'
 import { useSnackbar } from 'notistack';
 import { red, green } from '@mui/material/colors';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
 
 import {
     selectUserLogged
@@ -75,17 +77,33 @@ const formatDate = (date) => {
 
 const printAmount = (amount, multiplier) => {
     const color = multiplier == -1 ? red[500] : green[500]
-    const arrow = multiplier == -1 ? "↓"  : "↑"
+    const arrow = multiplier == -1 ? "↓" : "↑"
     return <Typography sx={{ color }}>
         $ {ccyFormat(amount)} {arrow}
     </Typography>
 }
+
+const availableMultiplierFilters = [
+    {
+        value: 0,
+        label: "Todos"
+    },
+    {
+        value: 1,
+        label: "Créditos"
+    },
+    {
+        value: -1,
+        label: "Débitos"
+    }
+]
 
 export default function MovementList() {
     const { enqueueSnackbar } = useSnackbar();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [totalCount, setTotalCount] = React.useState(0);
+    const [multiplierFilter, setMultiplierFilter] = React.useState(0);
 
     const userLogged = useSelector(selectUserLogged);
 
@@ -96,6 +114,8 @@ export default function MovementList() {
             page_size: rowsPerPage,
             page: page + 1
         }
+        if (multiplierFilter != 0) 
+            apiParams.multiplier = multiplierFilter
         const response = await getMovementsAPI(apiParams)
         if (response?.errors?.length) {
             return enqueueSnackbar(getAPIError(response.errors), { variant: "error" })
@@ -106,7 +126,7 @@ export default function MovementList() {
 
     React.useEffect(() => {
         getMovements()
-    }, [page, rowsPerPage])
+    }, [page, rowsPerPage, multiplierFilter])
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -122,6 +142,24 @@ export default function MovementList() {
             <Typography variant="h5">
                 Hola, {userLogged.first_name} {userLogged.last_name}. Tu saldo es {ccyFormat(movements[0]?.balance || 0)}
             </Typography>
+            <Grid container justifyContent="flex-end" spacing={2}>
+                <Grid item xs={4}>
+                    <TextField
+                        name="filter"
+                        value={multiplierFilter}
+                        onChange={(e) => setMultiplierFilter(e.target.value)}
+                        select
+                        fullWidth
+                        margin="normal"
+                    >
+                        {availableMultiplierFilters.map((filter) => (
+                            <MenuItem key={filter.value} value={filter.value}>
+                                {filter.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </Grid>
+            </Grid>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <Paper sx={{ width: '100%', mb: 2 }}>
                     <TableContainer>
