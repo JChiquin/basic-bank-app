@@ -15,6 +15,7 @@ type IUserController interface {
 	WhoAmI(response http.ResponseWriter, request *http.Request)
 	FindByAccountNumber(response http.ResponseWriter, request *http.Request)
 	GetBalance(response http.ResponseWriter, request *http.Request)
+	UpdatePassword(response http.ResponseWriter, request *http.Request)
 }
 
 /*
@@ -26,6 +27,7 @@ type IUserService interface {
 	FindByID(userID int) (*entity.User, error)
 	FindByAccountNumber(accountNumber string) (*entity.User, error)
 	GetBalance(userId int) (*dto.LastBalance, error)
+	UpdatePassword(updatePassword *dto.UpdatePassord) error
 }
 
 /*
@@ -38,4 +40,5 @@ type IUserRepository interface {
 	FindByID(userID int) (*entity.User, error)
 	FindByAccountNumber(accountNumber string) (*entity.User, error)
 	GetBalance(userID int) (float64, error)
+	UpdatePassword(userID int, newPlainPassword string) error
 }

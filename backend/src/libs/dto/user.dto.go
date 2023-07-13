@@ -73,3 +73,21 @@ type LastBalance struct {
 	Balance  float64   `json:"balance" groups:"client"`
 	LastTime time.Time `json:"last_time" groups:"client"`
 }
+
+type UpdatePassord struct {
+	UserID      int    `json:"-" validate:"required"` //came from JWT
+	Password    string `json:"password" validate:"required,min=8,max=16"`
+	NewPassword string `json:"new_password" validate:"required,min=8,max=16"`
+}
+
+/*
+Validate returns an error if the DTO doesn't pass any of its own validations
+*/
+func (dto *UpdatePassord) Validate() error {
+	//Checks for struct validations (see validate tag)
+	if err := validator.ValidateStruct(dto); err != nil {
+		return err
+	}
+
+	return nil
+}

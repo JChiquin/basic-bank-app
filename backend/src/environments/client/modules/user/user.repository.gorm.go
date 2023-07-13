@@ -102,3 +102,18 @@ func (r *userGormRepo) findByAttributes(userFilter entity.User) (*entity.User, e
 
 	return user, nil
 }
+
+func (r *userGormRepo) UpdatePassword(userID int, newPlainPassword string) error {
+	result := r.db.
+		Model(&entity.User{ID: userID}).
+		Updates(entity.User{Password: newPlainPassword})
+
+	if result.Error != nil {
+		return result.Error
+	}
+	if result.RowsAffected == 0 {
+		return myErrors.ErrNotFound
+	}
+
+	return nil
+}

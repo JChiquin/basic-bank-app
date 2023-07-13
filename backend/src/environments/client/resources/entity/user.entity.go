@@ -40,6 +40,16 @@ func (u *User) BeforeCreate(tx *gorm.DB) error {
 	return nil
 }
 
+// BeforeUpdate is a database hook
+func (u *User) BeforeUpdate(tx *gorm.DB) error {
+	hashedPassword, err := password.HashPassword(tx.Statement.Dest.(User).Password)
+	if err != nil {
+		return err
+	}
+	tx.Statement.SetColumn("Password", hashedPassword)
+	return nil
+}
+
 func (u *User) CheckPassword(plainTextPassword string) error {
 	return bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(plainTextPassword))
 }

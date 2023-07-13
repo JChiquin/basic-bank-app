@@ -4,7 +4,8 @@
         "LOGIN": "Usuario logueado con éxito",
         "WHO_AM_I": "Usuario validado con éxito",
         "BALANCE": "Balance obtenido con éxito",
-        "FOUND": "Usuario encontrado con éxito"
+        "FOUND": "Usuario encontrado con éxito",
+        "PASSWORD_UPDATED": "Contraseña actualizada con éxito"
     },
     "CONTACT": {
         "CREATED": "Contacto registrado con éxito",

@@ -112,3 +112,26 @@ func (c *userController) FindByAccountNumber(response http.ResponseWriter, reque
 
 	c.MakeSuccessResponse(response, user, http.StatusOK, i18n.T(i18n.Message{MessageID: "USER.FOUND"}))
 }
+
+/*
+UpdatePassword extracts request body and user ID from JWT, then calls UpdatePassword service
+*/
+func (c *userController) UpdatePassword(response http.ResponseWriter, request *http.Request) {
+	jwtContext := request.Context().Value(helpers.ContextKey(constant.JWTContext)).(*dto.JWTContext)
+
+	updatePassword := &dto.UpdatePassord{}
+	err := httpUtils.GetBodyRequest(request, updatePassword)
+	if err != nil {
+		c.MakeErrorResponse(response, err)
+		return
+	}
+
+	updatePassword.UserID = jwtContext.UserID
+
+	err = c.sUser.UpdatePassword(updatePassword)
+	if err != nil {
+		c.MakeErrorResponse(response, err)
+		return
+	}
+	c.MakeSuccessResponse(response, nil, http.StatusOK, i18n.T(i18n.Message{MessageID: "USER.PASSWORD_UPDATED"}))
+}

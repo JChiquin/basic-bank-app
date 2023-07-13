@@ -46,6 +46,13 @@ func (r *userRouter) privateRoutes(subRouter *mux.Router) {
 			http.HandlerFunc(r.cUser.GetBalance),
 		)).
 		Methods(http.MethodGet)
+
+	subRouter.
+		Path("/password").
+		Handler(httpUtils.Middleware(
+			http.HandlerFunc(r.cUser.UpdatePassword),
+		)).
+		Methods(http.MethodPatch)
 }
 
 /*

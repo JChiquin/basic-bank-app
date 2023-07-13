@@ -106,3 +106,20 @@ func (s *userService) FindByAccountNumber(accountNumber string) (*entity.User, e
 	}
 	return s.rUser.FindByAccountNumber(accountNumber)
 }
+
+func (s *userService) UpdatePassword(updatePassword *dto.UpdatePassord) error {
+	if err := updatePassword.Validate(); err != nil {
+		return err
+	}
+
+	userFound, err := s.rUser.FindByID(updatePassword.UserID)
+	if err != nil {
+		return err
+	}
+
+	if err := userFound.CheckPassword(updatePassword.Password); err != nil {
+		return myErrors.ErrUnauthorized
+	}
+
+	return s.rUser.UpdatePassword(updatePassword.UserID, updatePassword.NewPassword)
+}

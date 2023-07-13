@@ -4,7 +4,8 @@
         "LOGIN": "User successfully logged in",
         "WHO_AM_I": "User successfully validated",
         "BALANCE": "Balance successfully returned",
-        "FOUND": "User successfully found"
+        "FOUND": "User successfully found",
+        "PASSWORD_UPDATED": "Password successfully updated"
     },
     "CONTACT": {
         "CREATED": "Contact successfully created",
