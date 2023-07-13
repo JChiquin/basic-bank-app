@@ -14,6 +14,7 @@ type IUserController interface {
 	Login(response http.ResponseWriter, request *http.Request)
 	WhoAmI(response http.ResponseWriter, request *http.Request)
 	FindByAccountNumber(response http.ResponseWriter, request *http.Request)
+	GetBalance(response http.ResponseWriter, request *http.Request)
 }
 
 /*
@@ -24,6 +25,7 @@ type IUserService interface {
 	Login(requestLogin *dto.RequestLogin) (*dto.ResponseLogin, error)
 	FindByID(userID int) (*entity.User, error)
 	FindByAccountNumber(accountNumber string) (*entity.User, error)
+	GetBalance(userId int) (*dto.LastBalance, error)
 }
 
 /*

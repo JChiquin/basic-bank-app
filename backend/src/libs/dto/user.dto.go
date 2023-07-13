@@ -68,3 +68,8 @@ type JWTContext struct {
 	UserID   int    `json:"-"`
 	UserType string `json:"-"`
 }
+
+type LastBalance struct {
+	Balance  float64   `json:"balance" groups:"client"`
+	LastTime time.Time `json:"last_time" groups:"client"`
+}

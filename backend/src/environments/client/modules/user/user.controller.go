@@ -81,7 +81,21 @@ func (c *userController) WhoAmI(response http.ResponseWriter, request *http.Requ
 }
 
 /*
-WhoAmI extracts userID from context (came from JWT) and calls service to find user by that value
+GetBalance extracts userID from context (came from JWT) and calls service to the user last balance
+*/
+func (c *userController) GetBalance(response http.ResponseWriter, request *http.Request) {
+	jwtContext := request.Context().Value(helpers.ContextKey(constant.JWTContext)).(*dto.JWTContext)
+
+	balance, err := c.sUser.GetBalance(jwtContext.UserID)
+	if err != nil {
+		c.MakeErrorResponse(response, err)
+		return
+	}
+	c.MakeSuccessResponse(response, balance, http.StatusOK, i18n.T(i18n.Message{MessageID: "USER.BALANCE"}))
+}
+
+/*
+FindByAccountNumber extracts account_number from path variable and calls service to get that user
 */
 func (c *userController) FindByAccountNumber(response http.ResponseWriter, request *http.Request) {
 	accountNumber, err := httpUtils.GetParamRequest(request, "account_number")

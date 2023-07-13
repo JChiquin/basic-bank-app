@@ -39,6 +39,13 @@ func (r *userRouter) privateRoutes(subRouter *mux.Router) {
 			http.HandlerFunc(r.cUser.FindByAccountNumber),
 		)).
 		Methods(http.MethodGet)
+
+	subRouter.
+		Path("/balance").
+		Handler(httpUtils.Middleware(
+			http.HandlerFunc(r.cUser.GetBalance),
+		)).
+		Methods(http.MethodGet)
 }
 
 /*

@@ -8,6 +8,7 @@ import (
 	"bank-service/src/libs/logger"
 	"bank-service/src/utils/validator"
 	"errors"
+	"time"
 )
 
 /*
@@ -79,6 +80,24 @@ func (s *userService) FindByID(userID int) (*entity.User, error) {
 		return nil, err
 	}
 	return s.rUser.FindByID(userID)
+}
+
+func (s *userService) GetBalance(userID int) (*dto.LastBalance, error) {
+	if err := validator.ValidateVar(userID, "user_id", "required,gte=1"); err != nil {
+		return nil, err
+	}
+
+	balance, err := s.rUser.GetBalance(userID)
+	if err != nil {
+		return nil, err
+	}
+
+	lastBalance := &dto.LastBalance{
+		Balance:  balance,
+		LastTime: time.Now(),
+	}
+
+	return lastBalance, nil
 }
 
 func (s *userService) FindByAccountNumber(accountNumber string) (*entity.User, error) {
