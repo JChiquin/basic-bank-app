@@ -16,6 +16,7 @@ func init() {
 				"birth_date" TIMESTAMP WITH TIME ZONE,
 				"phone_number" varchar(20),
 				"document_number" varchar(20) UNIQUE,
+				"account_number" varchar(20) UNIQUE,
 				"password" varchar(255),
 				"user_type" varchar(20) NOT NULL,
 				created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),

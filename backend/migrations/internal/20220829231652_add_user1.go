@@ -21,8 +21,8 @@ func init() {
 			return err
 		}
 		_, err = db.Exec(`
-			INSERT INTO "user" (id, first_name, last_name, email, password, document_number, user_type) VALUES(?, ?, ?, ?, ?, ?, ?);
-		`, userIDuser1, "Elon", "Musk", email, hasedPassword, documentNumber, constant.UserTypeClient)
+			INSERT INTO "user" (id, first_name, last_name, email, password, document_number, account_number, user_type) VALUES(?, ?, ?, ?, ?, ?, ?, ?);
+		`, userIDuser1, "Elon", "Musk", email, hasedPassword, documentNumber, "01298319273126387343", constant.UserTypeClient)
 		return err
 	}
 

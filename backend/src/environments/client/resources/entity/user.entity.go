@@ -2,6 +2,7 @@ package entity
 
 import (
 	"bank-service/src/libs/password"
+	"fmt"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -18,19 +19,24 @@ type User struct {
 	Email          string    `json:"email" groups:"client"`
 	Password       string    `json:"password" groups:""`
 	UserType       string    `json:"user_type" groups:""`
+	AccountNumber  string    `json:"account_number" groups:"client"`
 
 	CreatedAt time.Time      `json:"created_at" groups:""`
 	UpdatedAt time.Time      `json:"updated_at" groups:""`
 	DeletedAt gorm.DeletedAt `json:"deleted_at" groups:""`
 }
 
-//BeforeCreate is a database hook
+// BeforeCreate is a database hook
 func (u *User) BeforeCreate(tx *gorm.DB) error {
 	hashedPassword, err := password.HashPassword(u.Password)
 	if err != nil {
 		return err
 	}
 	u.Password = hashedPassword
+
+	//Generating a random account number
+	u.AccountNumber = fmt.Sprintf("%020d", time.Now().UnixNano())[:20]
+
 	return nil
 }
 
