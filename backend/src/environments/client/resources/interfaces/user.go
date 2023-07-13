@@ -13,6 +13,7 @@ type IUserController interface {
 	Create(response http.ResponseWriter, request *http.Request)
 	Login(response http.ResponseWriter, request *http.Request)
 	WhoAmI(response http.ResponseWriter, request *http.Request)
+	FindByAccountNumber(response http.ResponseWriter, request *http.Request)
 }
 
 /*
@@ -22,6 +23,7 @@ type IUserService interface {
 	Create(createUser *dto.CreateUser) (*entity.User, error)
 	Login(requestLogin *dto.RequestLogin) (*dto.ResponseLogin, error)
 	FindByID(userID int) (*entity.User, error)
+	FindByAccountNumber(accountNumber string) (*entity.User, error)
 }
 
 /*
@@ -32,4 +34,5 @@ type IUserRepository interface {
 	FindByDocumentNumber(documentNumber string) (*entity.User, error)
 	FindByEmail(email string) (*entity.User, error)
 	FindByID(userID int) (*entity.User, error)
+	FindByAccountNumber(accountNumber string) (*entity.User, error)
 }

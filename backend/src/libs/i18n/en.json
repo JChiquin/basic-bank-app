@@ -2,7 +2,8 @@
     "USER": {
         "CREATED": "User successfully registered",
         "LOGIN": "User successfully logged in",
-        "WHO_AM_I": "User successfully validated"
+        "WHO_AM_I": "User successfully validated",
+        "FOUND": "User successfully found"
     },
     "ERRORS": {
         "FIELD_VALIDATION": "The {{.Field}} field does not satisfy the validation {{.Validation}} {{.Valid}}",

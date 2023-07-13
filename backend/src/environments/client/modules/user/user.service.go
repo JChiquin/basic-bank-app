@@ -80,3 +80,10 @@ func (s *userService) FindByID(userID int) (*entity.User, error) {
 	}
 	return s.rUser.FindByID(userID)
 }
+
+func (s *userService) FindByAccountNumber(accountNumber string) (*entity.User, error) {
+	if err := validator.ValidateVar(accountNumber, "account_number", "required,len=20"); err != nil {
+		return nil, err
+	}
+	return s.rUser.FindByAccountNumber(accountNumber)
+}

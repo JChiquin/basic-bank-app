@@ -60,6 +60,14 @@ func (r *userGormRepo) FindByID(userID int) (*entity.User, error) {
 	return r.findByAttributes(entity.User{ID: userID})
 }
 
+/*
+FindByID receives the user account number and tries to find one user with that value
+If there is an error, returns it as a second result
+*/
+func (r *userGormRepo) FindByAccountNumber(accountNumber string) (*entity.User, error) {
+	return r.findByAttributes(entity.User{AccountNumber: accountNumber})
+}
+
 func (r *userGormRepo) findByAttributes(userFilter entity.User) (*entity.User, error) {
 	user := &entity.User{}
 

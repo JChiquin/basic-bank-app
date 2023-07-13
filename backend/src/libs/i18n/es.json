@@ -2,7 +2,8 @@
     "USER": {
         "CREATED": "Usuario registrado con éxito",
         "LOGIN": "Usuario logueado con éxito",
-        "WHO_AM_I": "Usuario validado con éxito"
+        "WHO_AM_I": "Usuario validado con éxito",
+        "FOUND": "Usuario encontrado con éxito"
     },
     "ERRORS": {
         "FIELD_VALIDATION": "El campo {{.Field}} no cumple la validación {{.Validation}} {{.Valid}}",

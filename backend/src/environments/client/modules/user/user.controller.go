@@ -79,3 +79,22 @@ func (c *userController) WhoAmI(response http.ResponseWriter, request *http.Requ
 	}
 	c.MakeSuccessResponse(response, user, http.StatusOK, i18n.T(i18n.Message{MessageID: "USER.WHO_AM_I"}))
 }
+
+/*
+WhoAmI extracts userID from context (came from JWT) and calls service to find user by that value
+*/
+func (c *userController) FindByAccountNumber(response http.ResponseWriter, request *http.Request) {
+	accountNumber, err := httpUtils.GetParamRequest(request, "account_number")
+	if err != nil {
+		c.MakeErrorResponse(response, err)
+		return
+	}
+
+	user, err := c.sUser.FindByAccountNumber(accountNumber)
+	if err != nil {
+		c.MakeErrorResponse(response, err)
+		return
+	}
+
+	c.MakeSuccessResponse(response, user, http.StatusOK, i18n.T(i18n.Message{MessageID: "USER.FOUND"}))
+}
