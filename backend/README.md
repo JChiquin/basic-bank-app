@@ -85,3 +85,7 @@ Clean cache (Useful for forcing tests to run again)
 ```bash
 docker-compose exec app go clean -testcache
 ```
+
+## Fake users
+
+You can find fake users to test this API in [the next JSON file](https://github.com/JChiquin/basic-bank-app/blob/main/backend/fixture/fake_clients_data.json)

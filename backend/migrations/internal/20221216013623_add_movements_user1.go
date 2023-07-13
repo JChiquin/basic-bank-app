@@ -14,7 +14,7 @@ func init() {
 		multiplier := 1
 		minAmount := 5_000
 		maxAmount := 900_000
-		for i := 0; i < 100000; i++ {
+		for i := 0; i < 1000; i++ {
 			amount := rand.Intn(maxAmount-minAmount) + minAmount
 			if i%3 == 0 {
 				multiplier = -1

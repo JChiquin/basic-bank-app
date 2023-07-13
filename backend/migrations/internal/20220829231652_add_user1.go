@@ -9,7 +9,7 @@ import (
 	migrations "github.com/robinjoseph08/go-pg-migrations/v2"
 )
 
-const userIDuser1 = 100
+const userIDuser1 = 10000
 
 func init() {
 	const documentNumber = "20000000"

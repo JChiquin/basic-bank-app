@@ -1,0 +1,182 @@
+[
+    {
+        "account_number": "23894732746287342342",
+        "birth_date": "1990-05-15T00:00:00Z",
+        "document_number": "12345678",
+        "email": "john.doe@example.com",
+        "first_name": "John",
+        "last_name": "Doe",
+        "phone_number": "+1234567890"
+    },
+    {
+        "account_number": "18273619283746556473",
+        "birth_date": "1985-09-22T00:00:00Z",
+        "document_number": "98765432",
+        "email": "jane.smith@example.com",
+        "first_name": "Jane",
+        "last_name": "Smith",
+        "phone_number": "+9876543210"
+    },
+    {
+        "account_number": "45678901234567890123",
+        "birth_date": "1978-12-01T00:00:00Z",
+        "document_number": "54321678",
+        "email": "robert.johnson@example.com",
+        "first_name": "Robert",
+        "last_name": "Johnson",
+        "phone_number": "+1234567890"
+    },
+    {
+        "account_number": "09876543210987654321",
+        "birth_date": "1992-03-08T00:00:00Z",
+        "document_number": "87654423",
+        "email": "lisa.wilson@example.com",
+        "first_name": "Lisa",
+        "last_name": "Wilson",
+        "phone_number": "+9876543210"
+    },
+    {
+        "account_number": "11223344556677889900",
+        "birth_date": "1980-07-04T00:00:00Z",
+        "document_number": "11223344",
+        "email": "michael.brown@example.com",
+        "first_name": "Michael",
+        "last_name": "Brown",
+        "phone_number": "+1234567890"
+    },
+    {
+        "account_number": "98765432101234567890",
+        "birth_date": "1995-10-12T00:00:00Z",
+        "document_number": "15343322",
+        "email": "sarah.johnson@example.com",
+        "first_name": "Sarah",
+        "last_name": "Johnson",
+        "phone_number": "+9876543210"
+    },
+    {
+        "account_number": "76543210987654321098",
+        "birth_date": "1987-02-18T00:00:00Z",
+        "document_number": "38765432",
+        "email": "david.smith@example.com",
+        "first_name": "David",
+        "last_name": "Smith",
+        "phone_number": "+1234567890"
+    },
+    {
+        "account_number": "65432109876543210987",
+        "birth_date": "1998-06-30T00:00:00Z",
+        "document_number": "11243324",
+        "email": "emily.wilson@example.com",
+        "first_name": "Emily",
+        "last_name": "Wilson",
+        "phone_number": "+9876543210"
+    },
+    {
+        "account_number": "89012345678901234567",
+        "birth_date": "1991-09-25T00:00:00Z",
+        "document_number": "54341628",
+        "email": "james.davis@example.com",
+        "first_name": "James",
+        "last_name": "Davis",
+        "phone_number": "+1234567890"
+    },
+    {
+        "account_number": "21436587092143658709",
+        "birth_date": "1983-12-07T00:00:00Z",
+        "document_number": "87654341",
+        "email": "olivia.brown@example.com",
+        "first_name": "Olivia",
+        "last_name": "Brown",
+        "phone_number": "+9876543210"
+    },
+    {
+        "account_number": "54321098765432109876",
+        "birth_date": "1994-02-14T00:00:00Z",
+        "document_number": "91223344",
+        "email": "william.johnson@example.com",
+        "first_name": "William",
+        "last_name": "Johnson",
+        "phone_number": "+1234567890"
+    },
+    {
+        "account_number": "09876098765432109876",
+        "birth_date": "1986-05-28T00:00:00Z",
+        "document_number": "55443322",
+        "email": "ava.smith@example.com",
+        "first_name": "Ava",
+        "last_name": "Smith",
+        "phone_number": "+9876543210"
+    },
+    {
+        "account_number": "76509876098765432109",
+        "birth_date": "1997-09-10T00:00:00Z",
+        "document_number": "98665832",
+        "email": "noah.wilson@example.com",
+        "first_name": "Noah",
+        "last_name": "Wilson",
+        "phone_number": "+1234567890"
+    },
+    {
+        "account_number": "34567890123456789012",
+        "birth_date": "1989-01-17T00:00:00Z",
+        "document_number": "11423344",
+        "email": "mia.davis@example.com",
+        "first_name": "Mia",
+        "last_name": "Davis",
+        "phone_number": "+9876543210"
+    },
+    {
+        "account_number": "90123456789012345678",
+        "birth_date": "1993-04-22T00:00:00Z",
+        "document_number": "54621678",
+        "email": "alexander.brown@example.com",
+        "first_name": "Alexander",
+        "last_name": "Brown",
+        "phone_number": "+1234567890"
+    },
+    {
+        "account_number": "67890987654321098765",
+        "birth_date": "1984-08-26T00:00:00Z",
+        "document_number": "67654321",
+        "email": "charlotte.johnson@example.com",
+        "first_name": "Charlotte",
+        "last_name": "Johnson",
+        "phone_number": "+9876543210"
+    },
+    {
+        "account_number": "23456789012345678901",
+        "birth_date": "1996-11-03T00:00:00Z",
+        "document_number": "11223544",
+        "email": "ethan.smith@example.com",
+        "first_name": "Ethan",
+        "last_name": "Smith",
+        "phone_number": "+1234567890"
+    },
+    {
+        "account_number": "87654321098765432109",
+        "birth_date": "1988-02-09T00:00:00Z",
+        "document_number": "63443322",
+        "email": "sophia.wilson@example.com",
+        "first_name": "Sophia",
+        "last_name": "Wilson",
+        "phone_number": "+9876543210"
+    },
+    {
+        "account_number": "83648356812639232389",
+        "birth_date": "1999-05-16T00:00:00Z",
+        "document_number": "28365432",
+        "email": "logan.davis@example.com",
+        "first_name": "Logan",
+        "last_name": "Davis",
+        "phone_number": "+1234567890"
+    },
+    {
+        "account_number": "12345678901234567890",
+        "birth_date": "1992-08-23T00:00:00Z",
+        "document_number": "11225374",
+        "email": "mia.johnson@example.com",
+        "first_name": "Mia",
+        "last_name": "Johnson",
+        "phone_number": "+9876543210"
+    }
+]
