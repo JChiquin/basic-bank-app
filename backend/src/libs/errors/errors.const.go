@@ -36,6 +36,15 @@ var (
 
 	//ErrSameWallet indicates that wallet to debit and wallet to credit is the same
 	ErrSameWallet = NewMyError(http.StatusBadRequest, i18n.Message{MessageID: "ERRORS.SAME_WALLET"})
+
+	//ErrSameContact indicates the contact is the same user
+	ErrSameContact = NewMyError(http.StatusBadRequest, i18n.Message{MessageID: "ERRORS.SAME_CONTACT"})
+
+	//ErrAliasInUse indicates the alias contact is already used for another contact of current user
+	ErrAliasInUse = NewMyError(http.StatusBadRequest, i18n.Message{MessageID: "ERRORS.ALIAS_IN_USE"})
+
+	//ErrDuplicatedContact indicates the contact is already saved
+	ErrDuplicatedContact = NewMyError(http.StatusBadRequest, i18n.Message{MessageID: "ERRORS.DUPLICATE_CONTACT"})
 )
 
 // Private errors

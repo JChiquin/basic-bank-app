@@ -6,6 +6,12 @@
         "BALANCE": "Balance obtenido con éxito",
         "FOUND": "Usuario encontrado con éxito"
     },
+    "CONTACT": {
+        "CREATED": "Contacto registrado con éxito",
+        "UPDATED": "Contacto actualizado con éxito",
+        "DELETED": "Contacto eliminado con éxito",
+        "FOUND": "Contacto encontrado con éxito"
+    },
     "MOVEMENT": {
         "CREATED": "Transferencia realizada con éxito"
     },
@@ -21,6 +27,9 @@
         "URL_NOT_FOUND": "URL no encontrada",
         "USER_DUPLICATED": "Ya existe un usuario registrado con esos datos",
         "INSUFFICIENT_BALANCE": "Saldo insuficiente para la transacción",
-        "SAME_WALLET": "No puedes transferir a tu propia billetera"
+        "SAME_WALLET": "No puedes transferir a tu propia billetera",
+        "SAME_CONTACT": "No puedes agendar a tu propia billetera",
+        "ALIAS_IN_USE": "Ya estás usando ese alias en otro contacto",
+        "DUPLICATE_CONTACT": "Ya tienes agregado a este contacto"
     }
 }

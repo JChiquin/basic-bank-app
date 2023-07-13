@@ -1,6 +1,7 @@
 package router
 
 import (
+	"bank-service/src/environments/client/modules/contact"
 	"bank-service/src/environments/client/modules/jwt"
 	"bank-service/src/environments/client/modules/movement"
 	"bank-service/src/environments/client/modules/user"
@@ -28,6 +29,11 @@ func SetupClientPrivateRoutes(subRouter *mux.Router) {
 	sMovement := movement.NewMovementService(rMovement, rUser)
 	cMovement := movement.NewMovementController(sMovement)
 	movement.NewMovementPrivateRouter(subRouter.PathPrefix("/movement").Subrouter(), cMovement)
+
+	rContact := contact.NewContactGormRepo(connection)
+	sContact := contact.NewContactService(rContact, rUser)
+	cContact := contact.NewContactController(sContact)
+	contact.NewContactPrivateRouter(subRouter.PathPrefix("/contact").Subrouter(), cContact)
 }
 
 /*

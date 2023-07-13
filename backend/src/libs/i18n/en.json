@@ -6,6 +6,12 @@
         "BALANCE": "Balance successfully returned",
         "FOUND": "User successfully found"
     },
+    "CONTACT": {
+        "CREATED": "Contact successfully created",
+        "UPDATED": "Contact successfully updated",
+        "DELETED": "Contact successfully deleted",
+        "FOUND": "Contact successfully found"
+    },
     "MOVEMENT": {
         "CREATED": "Transfer successfully completed"
     },
@@ -21,6 +27,9 @@
         "URL_NOT_FOUND": "URL not found",
         "USER_DUPLICATED": "There is already a registered user with this data",
         "INSUFFICIENT_BALANCE": "Insufficient balance for the transaction",
-        "SAME_WALLET": "You can't transfer to your own wallet"
+        "SAME_WALLET": "You can't transfer to your own wallet",
+        "SAME_CONTACT": "You can't save your wallet as contact",
+        "ALIAS_IN_USE": "You're already using that alias in another contact",
+        "DUPLICATE_CONTACT": "This contact already exists"
     }
 }

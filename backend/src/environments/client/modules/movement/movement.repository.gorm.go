@@ -4,7 +4,6 @@ import (
 	"bank-service/src/environments/client/resources/entity"
 	"bank-service/src/environments/client/resources/interfaces"
 	"bank-service/src/libs/dto"
-	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -37,7 +36,6 @@ func (r *movementGormRepo) IndexByUserID(movementToFilter entity.Movement, pagin
 		return nil, err
 	}
 
-	fmt.Println(movements)
 	return movements, nil
 }
 

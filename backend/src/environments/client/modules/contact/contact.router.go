@@ -38,4 +38,22 @@ func (r *contactRouter) privateRoutes(subRouter *mux.Router) {
 			http.HandlerFunc(r.cContact.Create),
 		)).
 		Methods(http.MethodPost)
+	subRouter.
+		Path("/{id}").
+		Handler(httpUtils.Middleware(
+			http.HandlerFunc(r.cContact.Update),
+		)).
+		Methods(http.MethodPatch)
+	subRouter.
+		Path("/{id}").
+		Handler(httpUtils.Middleware(
+			http.HandlerFunc(r.cContact.Delete),
+		)).
+		Methods(http.MethodDelete)
+	subRouter.
+		Path("/{id}").
+		Handler(httpUtils.Middleware(
+			http.HandlerFunc(r.cContact.GetOne),
+		)).
+		Methods(http.MethodGet)
 }
