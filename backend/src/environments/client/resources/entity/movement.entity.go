@@ -7,11 +7,13 @@ import (
 )
 
 type Movement struct {
-	ID         int     `json:"id" gorm:"primaryKey" groups:"client"`
-	UserID     int     `json:"user_id" groups:""`
-	Amount     float64 `json:"amount" groups:"client"`
-	Balance    float64 `json:"balance" groups:"client"`
-	Multiplier int     `json:"multiplier" groups:"client"` //-1 debit, 0 neutral and 1 credit
+	ID            int     `json:"id" gorm:"primaryKey" groups:"client"`
+	UserID        int     `json:"user_id" groups:""`
+	Amount        float64 `json:"amount" groups:"client"`
+	Balance       float64 `json:"balance" groups:"client"`
+	Multiplier    int     `json:"multiplier" groups:"client"` //-1 debit, 0 neutral and 1 credit
+	Description   string  `json:"description" groups:"client"`
+	AccountNumber string  `json:"account_number" groups:"client"`
 
 	//Timestampt fields
 	CreatedAt time.Time      `json:"created_at" groups:"client"`

@@ -25,7 +25,7 @@ func SetupClientPrivateRoutes(subRouter *mux.Router) {
 	user.NewUserPrivateRouter(subRouter.PathPrefix("/user").Subrouter(), cUser)
 
 	rMovement := movement.NewMovementGormRepo(connection)
-	sMovement := movement.NewMovementService(rMovement)
+	sMovement := movement.NewMovementService(rMovement, rUser)
 	cMovement := movement.NewMovementController(sMovement)
 	movement.NewMovementPrivateRouter(subRouter.PathPrefix("/movement").Subrouter(), cMovement)
 }

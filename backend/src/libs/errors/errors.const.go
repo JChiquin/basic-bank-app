@@ -30,9 +30,15 @@ var (
 
 	//ErrURLNotFound indicates a requested URL doesn't exist
 	ErrURLNotFound = NewMyError(http.StatusNotFound, i18n.Message{MessageID: "ERRORS.URL_NOT_FOUND"})
+
+	//ErrInsufficientBalance indicates that the wallet has no enough balance
+	ErrInsufficientBalance = NewMyError(http.StatusBadRequest, i18n.Message{MessageID: "ERRORS.INSUFFICIENT_BALANCE"})
+
+	//ErrSameWallet indicates that wallet to debit and wallet to credit is the same
+	ErrSameWallet = NewMyError(http.StatusBadRequest, i18n.Message{MessageID: "ERRORS.SAME_WALLET"})
 )
 
-//Private errors
+// Private errors
 var (
 	errUnsupportedFieldValue = NewMyError(http.StatusBadRequest, i18n.Message{MessageID: "ERRORS.UNSUPPORTED_FIELD_VALUE"})
 	errFieldValidation       = NewMyError(http.StatusBadRequest, i18n.Message{MessageID: "ERRORS.FIELD_VALIDATION"})

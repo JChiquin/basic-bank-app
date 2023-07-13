@@ -32,4 +32,10 @@ func (r *movementRouter) privateRoutes(subRouter *mux.Router) {
 			http.HandlerFunc(r.cMovement.Index),
 		)).
 		Methods(http.MethodGet)
+	subRouter.
+		Path("").
+		Handler(httpUtils.Middleware(
+			http.HandlerFunc(r.cMovement.Create),
+		)).
+		Methods(http.MethodPost)
 }

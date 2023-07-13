@@ -35,4 +35,5 @@ type IUserRepository interface {
 	FindByEmail(email string) (*entity.User, error)
 	FindByID(userID int) (*entity.User, error)
 	FindByAccountNumber(accountNumber string) (*entity.User, error)
+	GetBalance(userID int) (float64, error)
 }

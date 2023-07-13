@@ -10,7 +10,6 @@ import (
 
 func init() {
 	up := func(db orm.DB) error {
-		balance := 8_006_000
 		multiplier := 1
 		minAmount := 5_000
 		maxAmount := 900_000
@@ -22,10 +21,9 @@ func init() {
 				multiplier = 1
 			}
 
-			balance += amount * multiplier
 			_, err := db.Exec(`
-				INSERT INTO "movement" (user_id, amount, balance, multiplier, created_at) VALUES(?, ?, ?, ?, ?);
-			`, userIDuser1, amount, balance, multiplier, time.Now())
+				INSERT INTO "movement" (user_id, amount, multiplier, account_number, description, created_at) VALUES(?, ?, ?, ?, ?, ?);
+			`, userIDuser1, amount, multiplier, "54321098765432109876", "Bonus", time.Now())
 
 			if err != nil {
 				return err

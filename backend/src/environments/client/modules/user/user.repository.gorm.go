@@ -68,6 +68,28 @@ func (r *userGormRepo) FindByAccountNumber(accountNumber string) (*entity.User, 
 	return r.findByAttributes(entity.User{AccountNumber: accountNumber})
 }
 
+/*
+GetBalance receives the user id and find its last movement to get the current balance
+If there is an error, returns it as a second result
+*/
+func (r *userGormRepo) GetBalance(userID int) (float64, error) {
+	lastMovement := &entity.Movement{}
+	err := r.db.
+		Select("balance").
+		Where(entity.Movement{UserID: userID}).
+		Order("created_at DESC").
+		Take(lastMovement).
+		Error
+
+	//If no transactions were found, the balance will be initial value (0)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return 0, nil
+	} else if err != nil {
+		return 0, err
+	}
+	return lastMovement.Balance, nil
+}
+
 func (r *userGormRepo) findByAttributes(userFilter entity.User) (*entity.User, error) {
 	user := &entity.User{}
 

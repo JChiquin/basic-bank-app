@@ -4,6 +4,7 @@ import (
 	"bank-service/src/environments/client/resources/entity"
 	"bank-service/src/environments/client/resources/interfaces"
 	"bank-service/src/libs/dto"
+	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -35,5 +36,16 @@ func (r *movementGormRepo) IndexByUserID(movementToFilter entity.Movement, pagin
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Println(movements)
 	return movements, nil
+}
+
+func (r *movementGormRepo) Create(newMovement *entity.Movement) (*entity.Movement, error) {
+	err := r.db.Model(entity.Movement{}).
+		Create(&newMovement).Error
+	if err != nil {
+		return nil, err
+	}
+	return newMovement, nil
 }

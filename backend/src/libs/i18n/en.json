@@ -5,6 +5,9 @@
         "WHO_AM_I": "User successfully validated",
         "FOUND": "User successfully found"
     },
+    "MOVEMENT": {
+        "CREATED": "Transfer successfully completed"
+    },
     "ERRORS": {
         "FIELD_VALIDATION": "The {{.Field}} field does not satisfy the validation {{.Validation}} {{.Valid}}",
         "INTERNAL_SERVER": "Internal server error",
@@ -15,6 +18,8 @@
         "UNAUTHORIZED": "Unauthorized user, incorrect credentials",
         "UNSUPPORTED_FIELD_VALUE": "Unsupported value for {{.Field}}",
         "URL_NOT_FOUND": "URL not found",
-        "USER_DUPLICATED": "There is already a registered user with this data"
+        "USER_DUPLICATED": "There is already a registered user with this data",
+        "INSUFFICIENT_BALANCE": "Insufficient balance for the transaction",
+        "SAME_WALLET": "You can't transfer to your own wallet"
     }
 }

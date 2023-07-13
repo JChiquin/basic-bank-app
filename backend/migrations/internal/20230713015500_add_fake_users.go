@@ -32,7 +32,7 @@ func init() {
 	up := func(db orm.DB) error {
 
 		for _, user := range users {
-			password, err := password.HashPassword("12345")
+			password, err := password.HashPassword("12345678")
 			if err != nil {
 				return err
 			}

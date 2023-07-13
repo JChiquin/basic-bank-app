@@ -14,6 +14,8 @@ func init() {
 				"amount" NUMERIC(16, 4) NOT NULL,
 				"balance" NUMERIC(16, 4) NOT NULL,
 				"multiplier" INT NOT NULL,
+				"account_number" varchar(20) NOT NULL,
+				"description" varchar(100) NOT NULL,
 
 				created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
 				updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
@@ -22,7 +24,7 @@ func init() {
 				PRIMARY KEY ("id"),
 				CONSTRAINT fk_user
 					FOREIGN KEY(user_id) 
-						REFERENCES "user"(id)
+						REFERENCES "user"(id) ON DELETE CASCADE
 			);
 		`)
 		return err
