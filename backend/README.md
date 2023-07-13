@@ -1,12 +1,12 @@
 # bank-service
-Basic bank service with users and movements
+Basic bank service with users, movements and frequent contacts
 
 ## Development containers
 In the project there is a docker-compose file used to lift the entire work environment without installing frames or tools used by the project
 
 - Install Docker `sudo apt-get install docker-compose` (ubuntu, [for Windows use this](https://docs.docker.com/desktop/install/windows-install))
 
-- Create the `.env` file based on `.env.example`.
+- Create the `.env` file based on `.env.example`. Use random values for secret envs
 
 - Create a global bridge network
 
