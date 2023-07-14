@@ -1,6 +1,6 @@
 # basic-bank-app
 
-![image](https://user-images.githubusercontent.com/37207786/207205677-999fdf48-49b2-42b5-abc8-f94da4d93e47.png)
+![image](https://github.com/JChiquin/basic-bank-app/assets/37207786/6da5881f-6177-4a84-b980-503f23aa677e)
 
 - [Frontend instructions](https://github.com/JChiquin/basic-bank-app/blob/main/frontend/README.md)
 - [Backend instructions](https://github.com/JChiquin/basic-bank-app/blob/main/backend/README.md)
