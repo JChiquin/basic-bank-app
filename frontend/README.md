@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Development containers
 In the project there is a docker-compose file used to lift the entire work environment without installing frames or tools used by the project
 
-- Install Docker `sudo apt-get install docker-compose`
+- Install Docker `sudo apt-get install docker-compose` (ubuntu, [for Windows use this](https://docs.docker.com/desktop/install/windows-install))
 
 - Create the `.env` file based on `.env.example`.
 
@@ -21,11 +21,7 @@ $ docker-compose build
 $ docker-compose up -d
 ```
 
-- Check service up
-
-```bash
-$ curl http://localhost:8080
-```
+- Go to your browser and open this URL: [http://localhost:8080](http://localhost:8080)
 
 ## Available Scripts
 

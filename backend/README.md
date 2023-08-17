@@ -32,10 +32,17 @@ docker-compose up
 curl http://localhost:3000/ping
 ```
 
-- Run databae migrations
+- Run database migrations
 ```bash
-docker-compose exec app go run migrations/internal/*.go migrate
+docker-compose exec app go run migrations/internal/main.go migrate
 ```
+
+Note: If you get any error running the previous command, you can use these two commands: `docker-compose exec app bash` then `go run migrations/internal/*.go migrate`
+
+## Postman docs
+
+- [Postman documentation](https://www.postman.com/jchiquinvdev/workspace/lab3)
+You should use the `Bank-service` collection, you will probably need to fork that collection into your own workspace in order to use the requests.
 
 ## Ports
 
@@ -51,7 +58,7 @@ docker-compose exec app go run migrations/internal/*.go migrate
 
 Development
 ```bash
-docker-compose exec app go run migrations/internal/*.go migrate
+docker-compose exec app go run migrations/internal/main.go migrate
 ```
 
 If you need to rollback, just change the final word `migrate` for `rollback` (roll back the previous run batch of migrations)
