@@ -36,7 +36,7 @@ curl http://localhost:3000/ping
 This step is for creating all the database tables with their fields and relations
 
 ```bash
-docker-compose exec app go run migrations/internal/main.go migrate
+docker-compose exec app go run migrations/internal/*.go migrate
 ```
 
 You should see something like this:
@@ -57,7 +57,7 @@ Finished running "20230713130922_create_contact_table"
 If you get any error or you don't see the previous result, you can use:
 
 ```bash
-docker-compose exec app go run migrations/internal/*.go migrate
+docker-compose exec app go run migrations/internal/main.go migrate
 ```
 
 Or you can use these two commands:
