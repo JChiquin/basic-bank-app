@@ -33,11 +33,41 @@ curl http://localhost:3000/ping
 ```
 
 - Run database migrations
+This step is for creating all the database tables with their fields and relations
+
 ```bash
 docker-compose exec app go run migrations/internal/main.go migrate
 ```
 
-Note: If you get any error running the previous command, you can use these two commands: `docker-compose exec app bash` then `go run migrations/internal/*.go migrate`
+You should see something like this:
+
+```
+Running batch 1 with 9 migration(s)...
+Finished running "20220727011546_create-user-table"
+Finished running "20220729143904_create-movement-table"
+Finished running "20220730143904_trigger_set_balance_movement"
+Finished running "20220730153904_trigger_create_bonus_movement"
+Finished running "20220829231652_add_user1"
+Finished running "20221207011102_add_movements_user1"
+Finished running "20221216013623_add_movements_user1"
+Finished running "20230713013541_add_fake_users"
+Finished running "20230713130922_create_contact_table"
+```
+
+If you get any error or you don't see the previous result, you can use:
+
+```bash
+docker-compose exec app go run migrations/internal/*.go migrate
+```
+
+Or you can use these two commands:
+
+```bash
+docker-compose exec app bash
+```
+```bash
+go run migrations/internal/*.go migrate
+```
 
 ## Postman docs
 
