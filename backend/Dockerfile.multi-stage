@@ -4,7 +4,7 @@ FROM golang:1.16.14 as development
 WORKDIR /app
 
 RUN go get github.com/githubnemo/CompileDaemon
-RUN go get gotest.tools/gotestsum
+#RUN go get gotest.tools/gotestsum #package for unit testing
 
 EXPOSE 3000
 ENTRYPOINT CompileDaemon --build="go build main.go" --command=./main
