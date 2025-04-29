@@ -54,20 +54,30 @@ Finished running "20230713013541_add_fake_users"
 Finished running "20230713130922_create_contact_table"
 ```
 
-If you get any error or you don't see the previous result, you can use:
+> If you get any error or you don't see the previous result, you can
+> use:
+> 
+> ```bash
+> 
+> docker-compose  exec  app  go  run  migrations/internal/main.go migrate
+> 
+> ```
+> 
+> Or you can use these two commands:
+> 
+> ```bash
+> 
+> docker-compose  exec  app  bash
+> 
+> ```
+> 
+> ```bash
+> 
+> go  run  migrations/internal/*.go migrate
+> 
+> ```
 
-```bash
-docker-compose exec app go run migrations/internal/main.go migrate
-```
-
-Or you can use these two commands:
-
-```bash
-docker-compose exec app bash
-```
-```bash
-go run migrations/internal/*.go migrate
-```
+### Congratulations! You have successfully done the configuration of this API.
 
 ## Postman docs
 
@@ -81,6 +91,10 @@ You should use the `Bank-service` collection, you will probably need to fork tha
 |Backend		 |`http://localhost:3000`        |
 |Database        |`http://localhost:5432`		 |
 |Pgadmin         |`http://localhost:80`			 |
+
+## Fake users
+
+You can find fake users to test this API in [the next JSON file](https://github.com/JChiquin/basic-bank-app/blob/main/backend/fixture/fake_clients_data.json)
 
 ## Migrations
 
@@ -122,7 +136,3 @@ Clean cache (Useful for forcing tests to run again)
 ```bash
 docker-compose exec app go clean -testcache
 ```
-
-## Fake users
-
-You can find fake users to test this API in [the next JSON file](https://github.com/JChiquin/basic-bank-app/blob/main/backend/fixture/fake_clients_data.json)
