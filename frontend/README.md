@@ -12,13 +12,13 @@ In the project there is a docker-compose file used to lift the entire work envir
 - Build docker orchestra
 
 ```bash
-$ docker-compose build
+docker-compose build
 ```
 
 - Run docker orchestra
 
 ```bash
-$ docker-compose up -d
+docker-compose up -d
 ```
 
 - Go to your browser and open this URL: [http://localhost:8080](http://localhost:8080)
