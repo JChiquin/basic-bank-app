@@ -81,7 +81,7 @@ Finished running "20230713130922_create_contact_table"
 
 ## Postman docs
 
-- [Postman documentation](https://www.postman.com/jchiquinvdev/workspace/lab3)
+- [Postman documentation](https://www.postman.com/jchiquindev/lab-ii)
 You should use the `Bank-service` collection, you will probably need to fork that collection into your own workspace in order to use the requests.
 
 ## Ports

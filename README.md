@@ -6,4 +6,4 @@
 
 - [Frontend instructions](https://github.com/JChiquin/basic-bank-app/blob/main/frontend/README.md)
 - [Backend instructions](https://github.com/JChiquin/basic-bank-app/blob/main/backend/README.md)
-- [Postman documentation](https://www.postman.com/jchiquinvdev/workspace/lab3)
+- [Postman documentation](https://www.postman.com/jchiquindev/lab-ii)

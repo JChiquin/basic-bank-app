@@ -11,7 +11,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      REACT_APP_API_URL_BACKEND: "http://localhost:3000"
-      PORT: 8080
+      REACT_APP_API_URL_BACKEND: ${REACT_APP_API_URL_BACKEND}
+      PORT: ${PORT}
 volumes:
   reserved:
