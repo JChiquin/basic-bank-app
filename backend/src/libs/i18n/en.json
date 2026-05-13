@@ -2,6 +2,8 @@
     "USER": {
         "CREATED": "User successfully registered",
         "LOGIN": "User successfully logged in",
+        "PASSWORD_RESET_CODE_SENT": "If the email exists, a recovery code will be sent",
+        "PASSWORD_RESET": "Password successfully reset",
         "WHO_AM_I": "User successfully validated",
         "BALANCE": "Balance successfully returned",
         "FOUND": "User successfully found",
@@ -31,6 +33,9 @@
         "SAME_WALLET": "You can't transfer to your own wallet",
         "SAME_CONTACT": "You can't save your wallet as contact",
         "ALIAS_IN_USE": "You're already using that alias in another contact",
-        "DUPLICATE_CONTACT": "This contact already exists"
+        "DUPLICATE_CONTACT": "This contact already exists",
+        "INVALID_PASSWORD_RESET_CODE": "The recovery code is invalid or expired",
+        "PASSWORD_RESET_CODE_ATTEMPTS_EXCEEDED": "The recovery code exceeded the maximum attempts",
+        "EMAIL_NOT_CONFIGURED": "Email delivery is not configured"
     }
 }

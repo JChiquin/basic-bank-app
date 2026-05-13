@@ -91,3 +91,37 @@ func (dto *UpdatePassord) Validate() error {
 
 	return nil
 }
+
+type RequestPasswordReset struct {
+	Email string `json:"email" validate:"required,email"`
+}
+
+/*
+Validate returns an error if the DTO doesn't pass any of its own validations
+*/
+func (dto *RequestPasswordReset) Validate() error {
+	//Checks for struct validations (see validate tag)
+	if err := validator.ValidateStruct(dto); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+type ResetPassword struct {
+	Email       string `json:"email" validate:"required,email"`
+	Code        string `json:"code" validate:"required,len=6,numeric"`
+	NewPassword string `json:"new_password" validate:"required,min=8,max=16"`
+}
+
+/*
+Validate returns an error if the DTO doesn't pass any of its own validations
+*/
+func (dto *ResetPassword) Validate() error {
+	//Checks for struct validations (see validate tag)
+	if err := validator.ValidateStruct(dto); err != nil {
+		return err
+	}
+
+	return nil
+}

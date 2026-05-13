@@ -45,6 +45,15 @@ var (
 
 	//ErrDuplicatedContact indicates the contact is already saved
 	ErrDuplicatedContact = NewMyError(http.StatusBadRequest, i18n.Message{MessageID: "ERRORS.DUPLICATE_CONTACT"})
+
+	//ErrInvalidPasswordResetCode indicates that password reset code is invalid, expired or already used
+	ErrInvalidPasswordResetCode = NewMyError(http.StatusBadRequest, i18n.Message{MessageID: "ERRORS.INVALID_PASSWORD_RESET_CODE"})
+
+	//ErrPasswordResetCodeAttemptsExceeded indicates that password reset code reached max attempts
+	ErrPasswordResetCodeAttemptsExceeded = NewMyError(http.StatusBadRequest, i18n.Message{MessageID: "ERRORS.PASSWORD_RESET_CODE_ATTEMPTS_EXCEEDED"})
+
+	//ErrEmailNotConfigured indicates SMTP env vars were not configured
+	ErrEmailNotConfigured = NewMyError(http.StatusInternalServerError, i18n.Message{MessageID: "ERRORS.EMAIL_NOT_CONFIGURED"})
 )
 
 // Private errors

@@ -12,6 +12,8 @@ IUserController methods to handle http requests
 type IUserController interface {
 	Create(response http.ResponseWriter, request *http.Request)
 	Login(response http.ResponseWriter, request *http.Request)
+	RequestPasswordReset(response http.ResponseWriter, request *http.Request)
+	ResetPassword(response http.ResponseWriter, request *http.Request)
 	WhoAmI(response http.ResponseWriter, request *http.Request)
 	FindByAccountNumber(response http.ResponseWriter, request *http.Request)
 	GetBalance(response http.ResponseWriter, request *http.Request)
@@ -24,6 +26,8 @@ IUserService methods to implement the bussiness logic
 type IUserService interface {
 	Create(createUser *dto.CreateUser) (*entity.User, error)
 	Login(requestLogin *dto.RequestLogin) (*dto.ResponseLogin, error)
+	RequestPasswordReset(requestPasswordReset *dto.RequestPasswordReset) error
+	ResetPassword(resetPassword *dto.ResetPassword) error
 	FindByID(userID int) (*entity.User, error)
 	FindByAccountNumber(accountNumber string) (*entity.User, error)
 	GetBalance(userId int) (*dto.LastBalance, error)
@@ -41,4 +45,8 @@ type IUserRepository interface {
 	FindByAccountNumber(accountNumber string) (*entity.User, error)
 	GetBalance(userID int) (float64, error)
 	UpdatePassword(userID int, newPlainPassword string) error
+	CreatePasswordResetCode(passwordResetCode *entity.PasswordResetCode) error
+	FindValidPasswordResetCode(userID int) (*entity.PasswordResetCode, error)
+	IncrementPasswordResetCodeAttempts(passwordResetCodeID int) error
+	MarkPasswordResetCodeUsed(passwordResetCodeID int) error
 }

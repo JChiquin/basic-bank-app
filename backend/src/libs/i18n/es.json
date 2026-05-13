@@ -2,6 +2,8 @@
     "USER": {
         "CREATED": "Usuario registrado con éxito",
         "LOGIN": "Usuario logueado con éxito",
+        "PASSWORD_RESET_CODE_SENT": "Si el correo existe, se enviará un código de recuperación",
+        "PASSWORD_RESET": "Contraseña restablecida con éxito",
         "WHO_AM_I": "Usuario validado con éxito",
         "BALANCE": "Balance obtenido con éxito",
         "FOUND": "Usuario encontrado con éxito",
@@ -31,6 +33,9 @@
         "SAME_WALLET": "No puedes transferir a tu propia billetera",
         "SAME_CONTACT": "No puedes agendar a tu propia billetera",
         "ALIAS_IN_USE": "Ya estás usando ese alias en otro contacto",
-        "DUPLICATE_CONTACT": "Ya tienes agregado a este contacto"
+        "DUPLICATE_CONTACT": "Ya tienes agregado a este contacto",
+        "INVALID_PASSWORD_RESET_CODE": "El código de recuperación es inválido o expiró",
+        "PASSWORD_RESET_CODE_ATTEMPTS_EXCEEDED": "El código de recuperación superó el máximo de intentos",
+        "EMAIL_NOT_CONFIGURED": "El envío de correo no está configurado"
     }
 }

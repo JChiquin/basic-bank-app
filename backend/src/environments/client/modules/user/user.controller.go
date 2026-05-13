@@ -8,6 +8,7 @@ import (
 	"bank-service/src/libs/i18n"
 	"bank-service/src/utils/constant"
 	"bank-service/src/utils/helpers"
+	"fmt"
 	"net/http"
 )
 
@@ -64,6 +65,45 @@ func (c *userController) Login(response http.ResponseWriter, request *http.Reque
 		return
 	}
 	c.MakeSuccessResponse(response, user, http.StatusOK, i18n.T(i18n.Message{MessageID: "USER.LOGIN"}))
+}
+
+/*
+RequestPasswordReset extracts request body and calls RequestPasswordReset service
+*/
+func (c *userController) RequestPasswordReset(response http.ResponseWriter, request *http.Request) {
+	requestPasswordReset := &dto.RequestPasswordReset{}
+	err := httpUtils.GetBodyRequest(request, requestPasswordReset)
+	if err != nil {
+		c.MakeErrorResponse(response, err)
+		return
+	}
+
+	err = c.sUser.RequestPasswordReset(requestPasswordReset)
+	if err != nil {
+		fmt.Println("Error sending password reset code:", err)
+		c.MakeErrorResponse(response, err)
+		return
+	}
+	c.MakeSuccessResponse(response, nil, http.StatusOK, i18n.T(i18n.Message{MessageID: "USER.PASSWORD_RESET_CODE_SENT"}))
+}
+
+/*
+ResetPassword extracts request body and calls ResetPassword service
+*/
+func (c *userController) ResetPassword(response http.ResponseWriter, request *http.Request) {
+	resetPassword := &dto.ResetPassword{}
+	err := httpUtils.GetBodyRequest(request, resetPassword)
+	if err != nil {
+		c.MakeErrorResponse(response, err)
+		return
+	}
+
+	err = c.sUser.ResetPassword(resetPassword)
+	if err != nil {
+		c.MakeErrorResponse(response, err)
+		return
+	}
+	c.MakeSuccessResponse(response, nil, http.StatusOK, i18n.T(i18n.Message{MessageID: "USER.PASSWORD_RESET"}))
 }
 
 /*

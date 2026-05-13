@@ -5,6 +5,7 @@ import (
 	"bank-service/src/environments/client/resources/interfaces"
 	myErrors "bank-service/src/libs/errors"
 	"errors"
+	"time"
 
 	"gorm.io/gorm"
 )
@@ -107,6 +108,68 @@ func (r *userGormRepo) UpdatePassword(userID int, newPlainPassword string) error
 	result := r.db.
 		Model(&entity.User{ID: userID}).
 		Updates(entity.User{Password: newPlainPassword})
+
+	if result.Error != nil {
+		return result.Error
+	}
+	if result.RowsAffected == 0 {
+		return myErrors.ErrNotFound
+	}
+
+	return nil
+}
+
+func (r *userGormRepo) CreatePasswordResetCode(passwordResetCode *entity.PasswordResetCode) error {
+	return r.db.Transaction(func(tx *gorm.DB) error {
+		now := time.Now()
+		if err := tx.
+			Model(&entity.PasswordResetCode{}).
+			Where("user_id = ? AND used_at IS NULL", passwordResetCode.UserID).
+			Update("used_at", now).
+			Error; err != nil {
+			return err
+		}
+
+		return tx.Create(passwordResetCode).Error
+	})
+}
+
+func (r *userGormRepo) FindValidPasswordResetCode(userID int) (*entity.PasswordResetCode, error) {
+	passwordResetCode := &entity.PasswordResetCode{}
+	err := r.db.
+		Where("user_id = ? AND used_at IS NULL AND expires_at > ?", userID, time.Now()).
+		Order("created_at DESC").
+		Take(passwordResetCode).
+		Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, myErrors.ErrNotFound
+	} else if err != nil {
+		return nil, err
+	}
+
+	return passwordResetCode, nil
+}
+
+func (r *userGormRepo) IncrementPasswordResetCodeAttempts(passwordResetCodeID int) error {
+	result := r.db.
+		Model(&entity.PasswordResetCode{ID: passwordResetCodeID}).
+		UpdateColumn("attempts", gorm.Expr("attempts + ?", 1))
+
+	if result.Error != nil {
+		return result.Error
+	}
+	if result.RowsAffected == 0 {
+		return myErrors.ErrNotFound
+	}
+
+	return nil
+}
+
+func (r *userGormRepo) MarkPasswordResetCodeUsed(passwordResetCodeID int) error {
+	now := time.Now()
+	result := r.db.
+		Model(&entity.PasswordResetCode{ID: passwordResetCodeID}).
+		Updates(map[string]interface{}{"used_at": now})
 
 	if result.Error != nil {
 		return result.Error

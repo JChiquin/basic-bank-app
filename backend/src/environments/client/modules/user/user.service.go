@@ -6,9 +6,20 @@ import (
 	"bank-service/src/libs/dto"
 	myErrors "bank-service/src/libs/errors"
 	"bank-service/src/libs/logger"
+	"bank-service/src/libs/mailer"
+	"bank-service/src/libs/password"
 	"bank-service/src/utils/validator"
+	"crypto/rand"
 	"errors"
+	"fmt"
+	"math/big"
 	"time"
+)
+
+const (
+	passwordResetCodeDigits      = 6
+	passwordResetCodeTTL         = 15 * time.Minute
+	passwordResetCodeMaxAttempts = 5
 )
 
 /*
@@ -75,6 +86,80 @@ func (s *userService) Login(requestLogin *dto.RequestLogin) (*dto.ResponseLogin,
 	return responseLogin, nil
 }
 
+func (s *userService) RequestPasswordReset(requestPasswordReset *dto.RequestPasswordReset) error {
+	if err := requestPasswordReset.Validate(); err != nil {
+		return err
+	}
+
+	if !mailer.IsConfigured() {
+		return myErrors.ErrEmailNotConfigured
+	}
+
+	userFound, err := s.rUser.FindByEmail(requestPasswordReset.Email)
+	if errors.Is(err, myErrors.ErrNotFound) {
+		return nil
+	} else if err != nil {
+		return err
+	}
+
+	code, err := generatePasswordResetCode()
+	if err != nil {
+		return err
+	}
+
+	codeHash, err := password.HashPassword(code)
+	if err != nil {
+		return err
+	}
+
+	passwordResetCode := &entity.PasswordResetCode{
+		UserID:    userFound.ID,
+		CodeHash:  codeHash,
+		ExpiresAt: time.Now().Add(passwordResetCodeTTL),
+	}
+	if err := s.rUser.CreatePasswordResetCode(passwordResetCode); err != nil {
+		return err
+	}
+
+	return mailer.SendRecoveryCode(userFound.Email, code)
+}
+
+func (s *userService) ResetPassword(resetPassword *dto.ResetPassword) error {
+	if err := resetPassword.Validate(); err != nil {
+		return err
+	}
+
+	userFound, err := s.rUser.FindByEmail(resetPassword.Email)
+	if err != nil {
+		return myErrors.ErrInvalidPasswordResetCode
+	}
+
+	passwordResetCode, err := s.rUser.FindValidPasswordResetCode(userFound.ID)
+	if err != nil {
+		return myErrors.ErrInvalidPasswordResetCode
+	}
+
+	if passwordResetCode.Attempts >= passwordResetCodeMaxAttempts {
+		_ = s.rUser.MarkPasswordResetCodeUsed(passwordResetCode.ID)
+		return myErrors.ErrPasswordResetCodeAttemptsExceeded
+	}
+
+	if err := password.CheckPassword(passwordResetCode.CodeHash, resetPassword.Code); err != nil {
+		_ = s.rUser.IncrementPasswordResetCodeAttempts(passwordResetCode.ID)
+		if passwordResetCode.Attempts+1 >= passwordResetCodeMaxAttempts {
+			_ = s.rUser.MarkPasswordResetCodeUsed(passwordResetCode.ID)
+			return myErrors.ErrPasswordResetCodeAttemptsExceeded
+		}
+		return myErrors.ErrInvalidPasswordResetCode
+	}
+
+	if err := s.rUser.UpdatePassword(userFound.ID, resetPassword.NewPassword); err != nil {
+		return err
+	}
+
+	return s.rUser.MarkPasswordResetCodeUsed(passwordResetCode.ID)
+}
+
 func (s *userService) FindByID(userID int) (*entity.User, error) {
 	if err := validator.ValidateVar(userID, "user_id", "required,gte=1"); err != nil {
 		return nil, err
@@ -122,4 +207,14 @@ func (s *userService) UpdatePassword(updatePassword *dto.UpdatePassord) error {
 	}
 
 	return s.rUser.UpdatePassword(updatePassword.UserID, updatePassword.NewPassword)
+}
+
+func generatePasswordResetCode() (string, error) {
+	max := big.NewInt(1000000)
+	number, err := rand.Int(rand.Reader, max)
+	if err != nil {
+		return "", err
+	}
+
+	return fmt.Sprintf("%0*d", passwordResetCodeDigits, number.Int64()), nil
 }

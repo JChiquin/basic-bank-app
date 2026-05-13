@@ -82,4 +82,18 @@ func (r *userRouter) publicRoutes(subRouter *mux.Router) {
 			http.HandlerFunc(r.cUser.Login),
 		)).
 		Methods(http.MethodPost)
+
+	subRouter.
+		Path("/forgot-password").
+		Handler(httpUtils.Middleware(
+			http.HandlerFunc(r.cUser.RequestPasswordReset),
+		)).
+		Methods(http.MethodPost)
+
+	subRouter.
+		Path("/reset-password").
+		Handler(httpUtils.Middleware(
+			http.HandlerFunc(r.cUser.ResetPassword),
+		)).
+		Methods(http.MethodPost)
 }

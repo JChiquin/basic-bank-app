@@ -42,7 +42,7 @@ docker-compose exec app go run migrations/internal/*.go migrate
 You should see something like this:
 
 ```
-Running batch 1 with 9 migration(s)...
+Running batch 2 with 10 migration(s)...
 Finished running "20220727011546_create-user-table"
 Finished running "20220729143904_create-movement-table"
 Finished running "20220730143904_trigger_set_balance_movement"
@@ -52,6 +52,7 @@ Finished running "20221207011102_add_movements_user1"
 Finished running "20221216013623_add_movements_user1"
 Finished running "20230713013541_add_fake_users"
 Finished running "20230713130922_create_contact_table"
+Finished running "20260513094500_create_password_reset_code_table"
 ```
 
 > If you get any error or you don't see the previous result, you can
