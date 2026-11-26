@@ -1,0 +1,5 @@
+.env
+.git
+audit.json
+cover.out
+main

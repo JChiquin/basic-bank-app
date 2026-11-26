@@ -26,7 +26,7 @@ func TestUserGormRepo(t *testing.T) {
 	user := &entity.User{
 		FirstName:      "Jorge",
 		LastName:       "Chiquín",
-		DocumentNumber: "12345678",
+		DocumentNumber: "99999999",
 		PhoneNumber:    "0123912312321",
 		BirthDate:      time.Date(2020, 1, 20, 1, 2, 0, 0, time.Local),
 		Email:          "some@gmail.com",
@@ -36,6 +36,7 @@ func TestUserGormRepo(t *testing.T) {
 
 	connection := database.GetBankGormConnection()
 	tx := connection.Begin()
+	defer tx.Rollback()
 	userRepo := NewUserGormRepo(tx)
 
 	userToCreate := &entity.User{}
@@ -44,7 +45,9 @@ func TestUserGormRepo(t *testing.T) {
 	got, err := userRepo.Create(userToCreate)
 
 	assert.NoError(t, err)
-	assert.True(t, cmp.Equal(got, user, cmpopts.IgnoreFields(entity.User{}, "CreatedAt", "UpdatedAt", "ID", "Password")))
+	// BeforeCreate hashes the password and generates AccountNumber, so neither
+	// field can be compared with the original fixture.
+	assert.True(t, cmp.Equal(got, user, cmpopts.IgnoreFields(entity.User{}, "CreatedAt", "UpdatedAt", "ID", "Password", "AccountNumber")))
 	assert.NotEqual(t, user.Password, got.Password)
 	assert.NoError(t, got.CheckPassword(user.Password))
 }
