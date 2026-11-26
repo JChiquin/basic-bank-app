@@ -1,35 +1,39 @@
 # development --------------------------
-FROM golang:1.16.14 as development
+FROM golang:1.23-alpine AS development
+
+# Pure-Go build: no C compiler needed and faster compiles
+ENV CGO_ENABLED=0
 
 WORKDIR /app
 
-RUN go get github.com/githubnemo/CompileDaemon
-#RUN go get gotest.tools/gotestsum #package for unit testing
+# Warm the module cache so new containers start without downloading dependencies
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Live-reload tool (pinned version)
+RUN go install github.com/githubnemo/CompileDaemon@v1.4.0
 
 EXPOSE 3000
-ENTRYPOINT CompileDaemon --build="go build main.go" --command=./main
+# Migrations are idempotent: they run on every start and no-op when up to date.
+# If a migration fails the container exits with the error in the logs.
+ENTRYPOINT ["sh", "-c", "echo 'Running database migrations...'; go run migrations/internal/*.go migrate && exec CompileDaemon --build='go build main.go' --command=./main"]
 
 # builder --------------------------
-FROM development as builder
-
-COPY ./go.mod .
-COPY ./go.sum .
-RUN go mod download
+FROM development AS builder
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -installsuffix cgo -ldflags '-w -s' -o /app/migrations.external /app/migrations/external
-RUN CGO_ENABLED=0 GOOS=linux go build -installsuffix cgo -ldflags '-w -s' -o /app/migrations.internal /app/migrations/internal
-RUN CGO_ENABLED=0 GOOS=linux go build -installsuffix cgo -ldflags '-w -s' -o /app/main
+RUN go build -ldflags '-w -s' -o /app/migrations.external /app/migrations/external
+RUN go build -ldflags '-w -s' -o /app/migrations.internal /app/migrations/internal
+RUN go build -ldflags '-w -s' -o /app/main
 
 EXPOSE 3000
 CMD ["/app/main"]
 
-
 # Production --------------------------
-FROM alpine:3 as production
+FROM alpine:3 AS production
 
-ENV PATH /app:$PATH
+ENV PATH=/app:$PATH
 WORKDIR /app
 
 COPY --from=builder /app/migrations.external /app/migrations.external
